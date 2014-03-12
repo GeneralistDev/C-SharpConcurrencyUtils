@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ConcurrencyUtils
 {
-    class BoundChannel<T> : Channel<T>
+    public class BoundChannel<T> : Channel<T>
     {
         private Semaphore putPermission;
 

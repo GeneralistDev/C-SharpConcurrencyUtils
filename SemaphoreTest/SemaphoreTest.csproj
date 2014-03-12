@@ -64,12 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConcurrencyUtilities\ConcurrencyUtils.csproj">
-      <Project>{d41547b6-d075-45b8-af3a-29ac1bee5e7c}</Project>
-      <Name>ConcurrencyUtils</Name>
-    </ProjectReference>
+    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -87,6 +82,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConcurrencyUtilities\ConcurrencyUtils.csproj">
+      <Project>{d41547b6-d075-45b8-af3a-29ac1bee5e7c}</Project>
+      <Name>ConcurrencyUtils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

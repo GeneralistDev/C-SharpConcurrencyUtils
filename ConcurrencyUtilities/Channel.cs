@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ConcurrencyUtils
 {
-    class Channel<T>
+    public class Channel<T>
     {
-        protected Semaphore takePermission;
+        private Semaphore takePermission;
         private readonly Object lockObject = new Object();
         private Queue<T> channelQueue;
 
