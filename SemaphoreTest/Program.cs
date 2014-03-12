@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
+using ConcurrencyUtils;
 
 namespace SemaphoreTest
 {
@@ -15,6 +16,12 @@ namespace SemaphoreTest
         public static readonly String DATA_STRING = "DATA";
         static void Main(string[] args)
         {
+            Console.WriteLine("Enter the utility class you would like to test:\n" +
+                              "OPTIONS:\n" +
+                              "   semaphore\n" +
+                              "   channel\n" +
+                              "   boundedchannel\n");
+            Console.Write("> ");
             String command = Console.ReadLine();
             if (command.Length > 0)
             {
@@ -47,7 +54,7 @@ namespace SemaphoreTest
                             grabberThreads.Add(newThread);
                         }
                         break;
-                    case "boundchannel":
+                    case "boundedchannel":
                         BoundChannel<String> testBoundChannel = new BoundChannel<String>(CHANNEL_SIZE);
                         List<Thread> putterThreads = new List<Thread>();
                         Thread grabberThread = new Thread(() => grabData(testBoundChannel));
