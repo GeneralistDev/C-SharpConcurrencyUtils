@@ -12,6 +12,7 @@ namespace SemaphoreTest
     { 
         public static readonly int TEST_THREADS = 4;
         public static readonly int DELAY_SECONDS = 2;
+        public static readonly UInt64 CHANNEL_SIZE = 10;
         public static readonly String DATA_STRING = "DATA";
         static void Main(string[] args)
         {
@@ -48,6 +49,19 @@ namespace SemaphoreTest
                         }
                         break;
                     case "boundchannel":
+                        BoundChannel<String> testBoundChannel = new BoundChannel<String>(CHANNEL_SIZE);
+                        List<Thread> putterThreads = new List<Thread>();
+                        Thread grabberThread = new Thread(() => grabData(testBoundChannel));
+                        grabberThread.Name = "Grabber";
+                        grabberThread.Start();
+                        for (int i = 0; i < TEST_THREADS; i++)
+                        {
+                            Thread newThread = new Thread(() => putData(testBoundChannel));
+                            newThread.Name = "Thread" + i;
+                            Console.WriteLine(newThread.Name + " created");
+                            newThread.Start();
+                            putterThreads.Add(newThread);
+                        }
                         break;
                     default:
                         Console.WriteLine("Test for '" + args[0] + "' not implemented");
@@ -77,7 +91,7 @@ namespace SemaphoreTest
         {
             while (true)
             {
-                Thread.Sleep(5000);
+                Thread.Sleep(DELAY_SECONDS);
                 Console.WriteLine(Thread.CurrentThread.Name + " about to put data in channel");
                 dataChannel.Put(DATA_STRING);
             }
@@ -88,6 +102,25 @@ namespace SemaphoreTest
             while (true)
             {
                 Console.WriteLine(Thread.CurrentThread.Name + " got: " + dataChannel.Take());
+            }
+        }
+
+        public static void putData(BoundChannel<String> boundDataChannel)
+        {
+            while (true)
+            {
+                Console.WriteLine(Thread.CurrentThread.Name + " about to put data on the channel");
+                boundDataChannel.Put(DATA_STRING);
+            }
+        }
+
+        public static void grabData(BoundChannel<String> boundDataChannel)
+        {
+            while (true)
+            {
+                Thread.Sleep(DELAY_SECONDS * 1000);
+                Console.WriteLine(Thread.CurrentThread.Name + " about to take data from channel");
+                Console.WriteLine("Got: " + boundDataChannel.Take());
             }
         }
     }
