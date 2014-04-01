@@ -21,8 +21,7 @@ namespace ConcurrencyUtils
                 }
                 else
                 {
-                    base.tokens = 1;
-                    Monitor.PulseAll(this);
+                    base.Release(1);
                 }
             }
         }

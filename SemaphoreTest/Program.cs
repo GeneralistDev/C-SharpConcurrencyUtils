@@ -22,7 +22,8 @@ namespace SemaphoreTest
                               "   channel\n" +
                               "   boundedchannel\n" +
                               "   lightswitch\n" +
-                              "   latch\n");
+                              "   latch\n" +
+                              "   rwlock\n");
             Console.Write("> ");
             String command = Console.ReadLine();
             if (command.Length > 0)
@@ -97,6 +98,21 @@ namespace SemaphoreTest
                         Thread unlocker = new Thread(() => latchRelease(latch));
                         unlocker.Start();
                         break;
+                    case "rwlock":
+                        ConcurrencyUtils.ReaderWriterLock RWLock = new ConcurrencyUtils.ReaderWriterLock();
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Thread newThread = new Thread(() => readLots(RWLock));
+                            newThread.Name = "Reader Thread" + i;
+                            newThread.Start();
+                        }
+                        for (int i = 0; i < 2; i++)
+                        {
+                            Thread newThread = new Thread(() => writeLots(RWLock));
+                            newThread.Name = "Writer Thread" + i;
+                            newThread.Start();
+                        }
+                        break;
                     default:
                         Console.WriteLine("Test for '" + args[0] + "' not implemented");
                         break;
@@ -105,6 +121,32 @@ namespace SemaphoreTest
             else
             {
                 Console.WriteLine("No argument provided");
+            }
+        }
+
+        public static void readLots(ConcurrencyUtils.ReaderWriterLock RWLock)
+        {
+            while (true)
+            {
+                Console.WriteLine(Thread.CurrentThread.Name + " waiting to read");
+                Thread.Sleep(500);
+                RWLock.ReaderAcquire();
+                Console.WriteLine(Thread.CurrentThread.Name + " read successful");
+                RWLock.ReaderRelease();
+                Thread.Sleep(1000);
+            }
+        }
+
+        public static void writeLots(ConcurrencyUtils.ReaderWriterLock RWLock)
+        {
+            while (true)
+            {
+                Console.WriteLine(Thread.CurrentThread.Name + " waiting to write");
+                Thread.Sleep(500);
+                RWLock.WriterAcquire();
+                Console.WriteLine(Thread.CurrentThread.Name + " write successful");
+                RWLock.WriterRelease();
+                Thread.Sleep(1000);
             }
         }
 

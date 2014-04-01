@@ -10,11 +10,6 @@ namespace ConcurrencyUtils
     {
         private Semaphore putPermission;
 
-        public BoundChannel() : base()
-        {
-            putPermission = new Semaphore(10);
-        }
-
         public BoundChannel(UInt64 size)
         {
             putPermission = new Semaphore(size);
