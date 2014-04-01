@@ -21,7 +21,8 @@ namespace SemaphoreTest
                               "   semaphore\n" +
                               "   channel\n" +
                               "   boundedchannel\n" +
-                              "   lightswitch\n");
+                              "   lightswitch\n" +
+                              "   latch\n");
             Console.Write("> ");
             String command = Console.ReadLine();
             if (command.Length > 0)
@@ -84,6 +85,18 @@ namespace SemaphoreTest
                             writerThreads.Add(newThread);
                         }
                         break;
+                    case "latch":
+                        Latch latch = new Latch();
+                        List<Thread> waiters = new List<Thread>();
+                        for (int i = 0; i < 100; i++)
+                        {
+                            Thread newThread = new Thread(() => latchAcquire(latch));
+                            newThread.Name = "Thread" + i;
+                            newThread.Start();
+                        }
+                        Thread unlocker = new Thread(() => latchRelease(latch));
+                        unlocker.Start();
+                        break;
                     default:
                         Console.WriteLine("Test for '" + args[0] + "' not implemented");
                         break;
@@ -93,6 +106,19 @@ namespace SemaphoreTest
             {
                 Console.WriteLine("No argument provided");
             }
+        }
+
+        public static void latchRelease(Latch latch)
+        {
+            Thread.Sleep(2000); // Wait two seconds before releasing the latch
+            latch.Release();
+        }
+
+        public static void latchAcquire(ConcurrencyUtils.Latch latch)
+        {
+            Console.WriteLine(Thread.CurrentThread.Name + "trying to acquire");
+            latch.Acquire();
+            Console.WriteLine(Thread.CurrentThread.Name + "got through the latch");
         }
 
         public static void lonelyThreadWrite(ConcurrencyUtils.Semaphore semaphore)
