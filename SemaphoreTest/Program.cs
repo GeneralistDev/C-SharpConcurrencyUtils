@@ -20,7 +20,8 @@ namespace SemaphoreTest
                               "OPTIONS:\n" +
                               "   semaphore\n" +
                               "   channel\n" +
-                              "   boundedchannel\n");
+                              "   boundedchannel\n" +
+                              "   lightswitch\n");
             Console.Write("> ");
             String command = Console.ReadLine();
             if (command.Length > 0)
@@ -69,6 +70,20 @@ namespace SemaphoreTest
                             putterThreads.Add(newThread);
                         }
                         break;
+                    case "lightswitch":
+                        ConcurrencyUtils.Semaphore semaphore = new ConcurrencyUtils.Semaphore(1);
+                        LightSwitch writeSwitch = new LightSwitch(semaphore);
+                        List<Thread> writerThreads = new List<Thread>();
+                        Thread lonelyThread = new Thread(() => lonelyThreadWrite( semaphore ) );
+                        lonelyThread.Start();
+                        for (int i = 0; i < 10; i++)
+                        {
+                            Thread newThread = new Thread(() => groupThreadWrite(writeSwitch));
+                            newThread.Name = "Thread" + i;
+                            newThread.Start();
+                            writerThreads.Add(newThread);
+                        }
+                        break;
                     default:
                         Console.WriteLine("Test for '" + args[0] + "' not implemented");
                         break;
@@ -77,6 +92,28 @@ namespace SemaphoreTest
             else
             {
                 Console.WriteLine("No argument provided");
+            }
+        }
+
+        public static void lonelyThreadWrite(ConcurrencyUtils.Semaphore semaphore)
+        {
+            while (true)
+            {
+                semaphore.Acquire();
+                Console.WriteLine("I'm a lonely thread");
+                Thread.Sleep(100);
+                semaphore.Release();
+            }
+        }
+
+        public static void groupThreadWrite(ConcurrencyUtils.LightSwitch LS)
+        {
+            while (true)
+            {
+                LS.Acquire();
+                Console.WriteLine("Group thread #" + Thread.CurrentThread.Name);
+                Thread.Sleep(3600);
+                LS.Release();
             }
         }
 

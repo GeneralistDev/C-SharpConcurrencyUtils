@@ -39,13 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Barrier.cs" />
     <Compile Include="BoundChannel.cs" />
     <Compile Include="Channel.cs" />
+    <Compile Include="Latch.cs" />
+    <Compile Include="LightSwitch.cs" />
+    <Compile Include="Mutex.cs" />
+    <Compile Include="ReaderWriterLock.cs" />
     <Compile Include="Semaphore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

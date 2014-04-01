@@ -9,7 +9,7 @@ namespace ConcurrencyUtils
 {
     public class Semaphore
     {
-        private UInt64 tokens;
+        protected UInt64 tokens;
         private readonly Object lockObject = new Object();
 
         public Semaphore()
@@ -39,7 +39,7 @@ namespace ConcurrencyUtils
             Release(1);
         }
 
-        public void Release(UInt64 n)
+        public virtual void Release(UInt64 n)
         {
             lock (lockObject)
             {
