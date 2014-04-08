@@ -8,7 +8,7 @@ using System.Threading;
 namespace ConcurrencyUtils
 {
     /// <summary>
-    /// 
+    ///     The semaphore class from which other concurrency utilities are derived.
     /// </summary>
     public class Semaphore
     {
@@ -16,7 +16,7 @@ namespace ConcurrencyUtils
         private readonly Object lockObject = new Object();
 
         /// <summary>
-        /// 
+        ///     Constructor taking an optional initial token amount. Default is 0 tokens
         /// </summary>
         /// <param name="nTokens"></param>
         public Semaphore(UInt64 nTokens = 0)
@@ -24,6 +24,9 @@ namespace ConcurrencyUtils
             tokens = nTokens;
         }
 
+        /// <summary>
+        ///     Acquire a token from the semaphore. Threads will wait if none available 
+        /// </summary>
         public void Acquire()
         {
             lock (lockObject)
@@ -36,12 +39,11 @@ namespace ConcurrencyUtils
             }
         }
 
-        public void Release()
-        {
-            Release(1);
-        }
-
-        public virtual void Release(UInt64 n)
+        /// <summary>
+        ///     Release a number of tokens to the semaphore (default 1) and pulse threads waiting at Acquire()
+        /// </summary>
+        /// <param name="n"></param>
+        public virtual void Release(UInt64 n = 1)
         {
             lock (lockObject)
             {
