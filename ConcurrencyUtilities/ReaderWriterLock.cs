@@ -7,14 +7,20 @@ using System.Threading;
 
 namespace ConcurrencyUtils
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ReaderWriterLock
     {
         Semaphore thisLock;
         Mutex writerTS, readerTS;
-        int NumberOfReaders;
+        int numberOfReaders;
         LightSwitch readers;
         Object lockObject;
 
+        /// <summary>
+        /// 
+        /// </summary>
         public ReaderWriterLock()
         {
             thisLock = new Semaphore(1);
@@ -22,55 +28,67 @@ namespace ConcurrencyUtils
             writerTS = new Mutex();
             readerTS = new Mutex();
 
-            NumberOfReaders = 0;
+            numberOfReaders = 0;
 
             readers = new LightSwitch(thisLock);
 
             lockObject = new Object();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void ReaderAcquire()
         {
             writerTS.Acquire();
-            writerTS.Release();
+            writerTS.Release(1);
 
             lock (lockObject)
             {
-                NumberOfReaders++;
+                numberOfReaders++;
             }
 
             readers.Acquire();
 
             lock (lockObject)
             {
-                NumberOfReaders--;
+                numberOfReaders--;
                 Monitor.PulseAll(lockObject);
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void WriterAcquire()
         {
             readerTS.Acquire();
             writerTS.Acquire();
             thisLock.Acquire();
-            writerTS.Release();
+            writerTS.Release(1);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void ReaderRelease()
         {
             readers.Release();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void WriterRelease()
         {
             thisLock.Release();
             lock (lockObject)
             {
-                if (NumberOfReaders > 0)
+                if (numberOfReaders > 0)
                 {
                     Monitor.Wait(lockObject);
                 }
-                readerTS.Release();
+                readerTS.Release(1);
             }
         }
     }

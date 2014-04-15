@@ -23,7 +23,8 @@ namespace SemaphoreTest
                               "   boundedchannel\n" +
                               "   lightswitch\n" +
                               "   latch\n" +
-                              "   rwlock\n");
+                              "   rwlock\n" +
+                              "   mutex\n");
             Console.Write("> ");
             String command = Console.ReadLine();
             if (command.Length > 0)
@@ -36,11 +37,28 @@ namespace SemaphoreTest
                         for (int i = 0; i < TEST_THREADS; i++)
                         {
                             Thread newThread = new Thread(() => SemaphoreTest(testSemaphore));
-                            newThread.Name = "Thread" + i;
-                            Console.WriteLine(newThread.Name + " created");
+                            newThread.Name = i.ToString();
+                            // Console.WriteLine(newThread.Name + " created");
                             newThread.Start();
                             threads.Add(newThread);
                         }
+                        Thread releaserThread = new Thread(() => SemaphoreTestReleaser(testSemaphore));
+                        releaserThread.Name = "R";
+                        releaserThread.Start();
+                        break;
+                    case "mutex":
+                        ConcurrencyUtils.Mutex testMutex = new ConcurrencyUtils.Mutex();
+                        List<Thread> mutexThreads = new List<Thread>();
+                        for (int i = 0; i < TEST_THREADS; i++)
+                        {
+                            Thread newThread = new Thread(() => SemaphoreTest(testMutex));
+                            newThread.Name = i.ToString();
+                            newThread.Start();
+                            mutexThreads.Add(newThread);
+                        }
+                        Thread mutexReleaserThread = new Thread(() => MutexTestReleaser(testMutex));
+                        mutexReleaserThread.Name = "R";
+                        mutexReleaserThread.Start();
                         break;
                     case "channel":
                         Channel<String> testChannel = new Channel<String>();
@@ -124,6 +142,16 @@ namespace SemaphoreTest
             }
         }
 
+        public static void MutexTestReleaser(ConcurrencyUtils.Mutex mutex)
+        {
+            while (true)
+            {
+                Console.WriteLine("\t\t\t" + Thread.CurrentThread.Name + ": Releasing mutex token");
+                mutex.Release();
+                Thread.Sleep(6000);
+            }
+        }
+
         public static void readLots(ConcurrencyUtils.ReaderWriterLock RWLock)
         {
             while (true)
@@ -185,15 +213,27 @@ namespace SemaphoreTest
             }
         }
 
+
+        public static void SemaphoreTestReleaser(ConcurrencyUtils.Semaphore testSemaphore)
+        {
+            while (true)
+            {
+                Console.WriteLine("\t\t\t" + Thread.CurrentThread.Name + ": Releasing 3 tokens");
+                testSemaphore.Release(3);
+                // Console.ForegroundColor = ConsoleColor.White;
+                
+                Thread.Sleep(6000);
+            }
+        }
         public static void SemaphoreTest(ConcurrencyUtils.Semaphore testSemaphore)
         {
             while (true)
             {
-                Console.WriteLine(Thread.CurrentThread.Name + " about to release token");
-                Thread.Sleep(DELAY_SECONDS * 1000);
-                testSemaphore.Release();
+                // Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(Thread.CurrentThread.Name + ": Trying to Acquire...");
                 testSemaphore.Acquire();
-                Console.WriteLine(Thread.CurrentThread.Name + " acquired token");
+                // Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(Thread.CurrentThread.Name + ": acquired token!");
                 Thread.Sleep(DELAY_SECONDS * 1000);
             }
         }
