@@ -15,14 +15,14 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Calls Semaphore constructor with single token
         /// </summary>
-        public Mutex(): base(1) { }
+        public Mutex(): base(1) {}
 
         /// <summary>
         ///     Overidding Release method which throws an argument error if either
         ///     more than one token is being released or if the total tokens is already larger than 0
         /// </summary>
         /// <param name="n"></param>
-        public override void Release(ulong n)
+        public override void Release(ulong n = 1)
         {
             lock (this)
             {

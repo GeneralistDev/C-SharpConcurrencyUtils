@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ConcurrencyUtils</name>
+    </assembly>
+    <members>
+        <member name="T:ConcurrencyUtils.BoundChannel`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:ConcurrencyUtils.Channel`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:ConcurrencyUtils.Channel`1.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.Channel`1.Put(`0)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:ConcurrencyUtils.Channel`1.Take">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ConcurrencyUtils.BoundChannel`1.#ctor(System.UInt64)">
+            <summary>
+            
+            </summary>
+            <param name="size"></param>
+        </member>
+        <member name="M:ConcurrencyUtils.BoundChannel`1.Put(`0)">
+            <summary>
+            
+            </summary>
+            <param name="item"></param>
+        </member>
+        <member name="M:ConcurrencyUtils.BoundChannel`1.Take">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:ConcurrencyUtils.Mutex">
+            <summary>
+                The mutex (single token semaphore) class which inherits from ConcurrencyUtils.Semaphore
+            </summary>
+        </member>
+        <member name="T:ConcurrencyUtils.Semaphore">
+            <summary>
+                The semaphore class from which other concurrency utilities are derived.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.Semaphore.#ctor(System.UInt64)">
+            <summary>
+                Constructor taking an optional initial token amount. Default is 0 tokens
+            </summary>
+            <param name="nTokens"></param>
+        </member>
+        <member name="M:ConcurrencyUtils.Semaphore.Acquire">
+            <summary>
+                Acquire a token from the semaphore. Threads will wait if none available 
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.Semaphore.Release(System.UInt64)">
+            <summary>
+                Release a number of tokens to the semaphore (default 1) and pulse threads waiting at Acquire()
+            </summary>
+            <param name="n"></param>
+        </member>
+        <member name="M:ConcurrencyUtils.Mutex.#ctor">
+            <summary>
+                Calls Semaphore constructor with single token
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.Mutex.Release(System.UInt64)">
+            <summary>
+                Overidding Release method which throws an argument error if either
+                more than one token is being released or if the total tokens is already larger than 0
+            </summary>
+            <param name="n"></param>
+        </member>
+        <member name="T:ConcurrencyUtils.ReaderWriterLock">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ReaderWriterLock.#ctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ReaderWriterLock.ReaderAcquire">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ReaderWriterLock.WriterAcquire">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ReaderWriterLock.ReaderRelease">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ReaderWriterLock.WriterRelease">
+            <summary>
+            
+            </summary>
+        </member>
+    </members>
+</doc>
