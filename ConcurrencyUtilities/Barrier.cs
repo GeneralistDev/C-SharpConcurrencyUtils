@@ -6,6 +6,12 @@ using System.Threading.Tasks;
 
 namespace ConcurrencyUtils
 {
+	/// <summary>
+	/// Concurrency Barrier. Threads rendezvous until the size of the barrier is
+	/// reached and the last one opens the barrier to allow them all to continue.
+	/// 
+	/// Author: Daniel Parker 971328X
+	/// </summary>
     public class Barrier
     {
         public Semaphore ReleaseSemaphore;
@@ -13,13 +19,20 @@ namespace ConcurrencyUtils
         public UInt32 barrierSize;
         public UInt32 count;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="ConcurrencyUtils.Barrier"/> class.
+		/// </summary>
+		/// <param name="barrierStartSize">Barrier start size.</param>
         public Barrier(UInt32 barrierStartSize)
         {
-            ReleaseSemaphore = new Semaphore(0);
+            ReleaseSemaphore = new Semaphore();
             TS = new Mutex();
             barrierSize = barrierStartSize;
         }
 
+		/// <summary>
+		/// Arrive at the barrier. When the barrier is full all threads continue.
+		/// </summary>
         public bool Arrive()
         {
             TS.Acquire();
