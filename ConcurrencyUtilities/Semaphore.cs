@@ -13,6 +13,8 @@ namespace ConcurrencyUtils
     public class Semaphore
     {
         protected UInt64 tokens;
+		protected UInt64 waitingThreads;
+
         private readonly Object lockObject = new Object();
 
         /// <summary>
@@ -29,14 +31,22 @@ namespace ConcurrencyUtils
         /// </summary>
         public void Acquire()
         {
-            lock (lockObject)
-            {
-                while (tokens == 0)
-                {
-                    Monitor.Wait(lockObject);
-                }
-                tokens--;
-            }
+			try {
+	            lock (lockObject)
+	            {
+					waitingThreads++;
+	                while (tokens == 0)
+	                {
+						Monitor.Wait(lockObject);
+	                }
+					waitingThreads--;
+	                tokens--;
+	            }
+			} 
+			catch (ThreadInterruptedException e) 
+			{
+				Monitor.Pulse (lockObject);
+			}
         }
 
         /// <summary>
@@ -48,7 +58,10 @@ namespace ConcurrencyUtils
             lock (lockObject)
             {
                 tokens += n;
-                Monitor.PulseAll(lockObject);
+				if (waitingThreads > 0) 
+				{
+					Monitor.Pulse (lockObject);
+				}
             }
         }
     }
