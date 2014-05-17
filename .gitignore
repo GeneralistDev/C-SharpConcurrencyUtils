@@ -1,2 +1,7 @@
 
 *.userprefs
+# Doxygen files
+html
+latex
+
+
