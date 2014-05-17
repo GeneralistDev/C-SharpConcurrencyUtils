@@ -6,20 +6,34 @@ using System.Threading.Tasks;
 
 namespace ConcurrencyUtils
 {
+	/// <summary>
+	/// 	Concurrency Latch utility.
+	/// </summary>
     public class Latch
     {
         private Semaphore lSemaphore;
+
+		/// <summary>
+		/// 	Initializes a new instance of the 
+		///		<see cref="ConcurrencyUtils.Latch"/> class.
+		/// </summary>
         public Latch()
         {
             lSemaphore = new Semaphore(0);
         }
 
+		/// <summary>
+		/// 	Acquire the latch.
+		/// </summary>
         public void Acquire()
         {
             lSemaphore.Acquire();
             lSemaphore.Release();
         }
 
+		/// <summary>
+		/// 	Release the latch.
+		/// </summary>
         public void Release()
         {
             lSemaphore.Release();

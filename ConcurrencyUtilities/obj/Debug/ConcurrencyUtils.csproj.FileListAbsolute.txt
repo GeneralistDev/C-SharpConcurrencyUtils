@@ -1,6 +1,0 @@
-C:\Users\Daniel\Google Drive\University\2014 Sem 1\Advanced .NET\Tasks\ConcurrencyUtilities\ConcurrencyUtilities\bin\Debug\ConcurrencyUtils.dll
-C:\Users\Daniel\Google Drive\University\2014 Sem 1\Advanced .NET\Tasks\ConcurrencyUtilities\ConcurrencyUtilities\bin\Debug\ConcurrencyUtils.pdb
-C:\Users\Daniel\Google Drive\University\2014 Sem 1\Advanced .NET\Tasks\ConcurrencyUtilities\ConcurrencyUtilities\obj\Debug\ConcurrencyUtils.dll
-C:\Users\Daniel\Google Drive\University\2014 Sem 1\Advanced .NET\Tasks\ConcurrencyUtilities\ConcurrencyUtilities\obj\Debug\ConcurrencyUtils.pdb
-C:\Users\Daniel\Google Drive\University\2014 Sem 1\Advanced .NET\Tasks\ConcurrencyUtilities\ConcurrencyUtilities\obj\Debug\ConcurrencyUtils.csprojResolveAssemblyReference.cache
-C:\Users\Daniel\Google Drive\University\2014 Sem 1\Advanced .NET\Tasks\ConcurrencyUtilities\ConcurrencyUtilities\bin\Debug\ConcurrencyUtils.XML

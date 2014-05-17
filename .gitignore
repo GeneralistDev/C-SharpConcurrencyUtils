@@ -1,2 +1,8 @@
 
 *.userprefs
+
+*.suo
+
+# Builds
+obj/
+bin/
