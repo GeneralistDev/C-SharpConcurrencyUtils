@@ -30,8 +30,7 @@ namespace ConcurrencyUtils
             {
                 if (n > 1 || base.tokens > 0)
                 {
-                    throw new System.ArgumentException("A mutex cannot contain 
-						more than 1 token");
+                    throw new System.ArgumentException("A mutex cannot contain more than 1 token");
                 }
                 else
                 {

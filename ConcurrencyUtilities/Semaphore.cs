@@ -13,7 +13,7 @@ namespace ConcurrencyUtils
     public class Semaphore
     {
         protected UInt64 tokens;
-        private readonly Object lockObject = new Object();
+        protected readonly Object lockObject = new Object();
 
         /// <summary>
         ///     Constructor taking an optional initial token amount. Default is 0 tokens
@@ -27,7 +27,7 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Acquire a token from the semaphore. Threads will wait if none available 
         /// </summary>
-        public void Acquire()
+        public virtual void Acquire()
         {
             lock (lockObject)
             {

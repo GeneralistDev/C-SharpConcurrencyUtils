@@ -14,7 +14,10 @@ namespace ConcurrencyUtils
         private Queue<ConcurrencyUtils.Semaphore> waitingThreadsQueue = new Queue<ConcurrencyUtils.Semaphore>();
         private readonly Object queueLock = new Object();
 
-        public FIFOSemaphore(UInt64 n = 0): base(n){ }
+        public FIFOSemaphore(UInt64 n = 0)
+        {
+            Release(n);
+        }
 
         /// <summary>
         ///     The acquiring thread creates a semaphore of it's own and adds it to the queue. 
@@ -22,11 +25,24 @@ namespace ConcurrencyUtils
         /// </summary>
         public override void Acquire()
         {
-            Semaphore threadSemaphore = new Semaphore(0);
-            lock (queueLock) 
+            Semaphore threadSemaphore;
+            lock(queueLock)
             {
-                waitingThreadsQueue.Enqueue(threadSemaphore);
+                lock (lockObject)
+                {
+                    if (tokens > 0)
+                    {
+                        tokens--;
+                        return;
+                    }
+                    else
+                    {
+                        threadSemaphore = new Semaphore(0);
+                        waitingThreadsQueue.Enqueue(threadSemaphore);
+                    }
+                }
             }
+            
             threadSemaphore.Acquire();
             base.Acquire();
         }
