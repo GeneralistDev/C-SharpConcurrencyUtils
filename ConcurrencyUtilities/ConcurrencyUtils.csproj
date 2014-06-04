@@ -40,9 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveObject.cs" />
     <Compile Include="Barrier.cs" />
     <Compile Include="BoundChannel.cs" />
     <Compile Include="Channel.cs" />
+    <Compile Include="InputChannelActiveObject.cs" />
+    <Compile Include="InputOutputChannelActiveObject.cs" />
+    <Compile Include="OutputChannelActiveObject.cs" />
     <Compile Include="FIFOSemaphore.cs" />
     <Compile Include="Latch.cs" />
     <Compile Include="LightSwitch.cs" />
