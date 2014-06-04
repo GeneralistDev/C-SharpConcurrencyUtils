@@ -25,7 +25,7 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Use this method to start the active object's processing.
         /// </summary>
-        public void Start()
+        public virtual void Start()
         {
             activeThread.Start();
         }
@@ -38,7 +38,7 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Stop the active object by interrupting it.
         /// </summary>
-        public void Stop()
+        public virtual void Stop()
         {
             activeThread.Interrupt();
         }

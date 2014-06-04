@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DiningPhilosophers", "Dinin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Smokers", "Smokers\Smokers.csproj", "{C8A11B79-D9E4-4995-94F8-3281FF3110B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorrentCreator", "TorrentCreator\TorrentCreator.csproj", "{1575A489-D2AD-45FC-AE51-059BDD096CFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{C8A11B79-D9E4-4995-94F8-3281FF3110B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C8A11B79-D9E4-4995-94F8-3281FF3110B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C8A11B79-D9E4-4995-94F8-3281FF3110B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1575A489-D2AD-45FC-AE51-059BDD096CFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1575A489-D2AD-45FC-AE51-059BDD096CFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1575A489-D2AD-45FC-AE51-059BDD096CFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1575A489-D2AD-45FC-AE51-059BDD096CFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

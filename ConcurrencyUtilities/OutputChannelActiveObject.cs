@@ -21,7 +21,7 @@ namespace ConcurrencyUtils
         ///     Loops forever putting the result of the 'Process' method on 
         ///     this active object's output channel.
         /// </summary>
-        private override void Execute()
+        protected override void Execute()
         {
             while (true)
             {

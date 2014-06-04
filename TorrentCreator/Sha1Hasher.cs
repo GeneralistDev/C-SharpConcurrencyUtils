@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ConcurrencyUtils;
+using System.Security.Cryptography;
+
+namespace TorrentCreator
+{
+    class Sha1Hasher: InputOutputChannelActiveObject<byte[], byte[]>
+    {
+        private SHA1 hasher = SHA1.Create();
+
+        protected byte[] Process(byte[] data)
+        {
+            return hasher.ComputeHash(data);
+        }
+    }
+}

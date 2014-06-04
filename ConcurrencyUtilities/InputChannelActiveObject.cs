@@ -20,7 +20,7 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Loops forever taking data off the input channel calling the 'Process' method.
         /// </summary>
-        private override void Execute()
+        protected override void Execute()
         {
             while (true)
             {
@@ -32,6 +32,6 @@ namespace ConcurrencyUtils
         ///     Process a given unit of data. Must be implemented by subclass.
         /// </summary>
         /// <param name="data">The data unit to process.</param>
-        protected void Process(IT data);
+        protected abstract void Process(IT data);
     }
 }

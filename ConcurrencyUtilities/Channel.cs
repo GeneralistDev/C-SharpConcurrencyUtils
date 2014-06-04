@@ -17,7 +17,7 @@ namespace ConcurrencyUtils
 
 		/// <summary>
 		/// Initializes a new instance of the 
-		/// <see cref="ConcurrencyUtils.Channel`1"/> class
+		/// <see cref="ConcurrencyUtils.Channel"/> class
 		/// by creating an abstract Queue and zero token Semaphore.
 		/// </summary>
         public Channel()

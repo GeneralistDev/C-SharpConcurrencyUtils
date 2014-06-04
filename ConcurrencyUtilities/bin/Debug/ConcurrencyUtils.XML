@@ -4,6 +4,32 @@
         <name>ConcurrencyUtils</name>
     </assembly>
     <members>
+        <member name="T:ConcurrencyUtils.ActiveObject">
+            <summary>
+                Active (threaded) object class. Subclass and override 'Execute()' to use.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ActiveObject.#ctor">
+            <summary>
+                Public constructor that creates a Thread 
+                object with the 'Execute' method as parameter.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ActiveObject.Start">
+            <summary>
+                Use this method to start the active object's processing.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ActiveObject.Execute">
+            <summary>
+                Execute active object logic. Subclass and override this method.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.ActiveObject.Stop">
+            <summary>
+                Stop the active object by interrupting it.
+            </summary>
+        </member>
         <member name="T:ConcurrencyUtils.Barrier">
             <summary>
             Concurrency Barrier. Threads rendezvous until the size of the barrier is
@@ -36,7 +62,7 @@
         <member name="M:ConcurrencyUtils.Channel`1.#ctor">
             <summary>
             Initializes a new instance of the 
-            <see cref="!:ConcurrencyUtils.Channel`1"/> class
+            <see cref="!:ConcurrencyUtils.Channel"/> class
             by creating an abstract Queue and zero token Semaphore.
             </summary>
         </member>
@@ -70,6 +96,66 @@
             <summary>
             Take an item from the Channel and release token
             </summary>
+        </member>
+        <member name="T:ConcurrencyUtils.InputChannelActiveObject`1">
+            <summary>
+                Channel-based active object that takes data from its
+                input channel and processes it.
+            </summary>
+            <typeparam name="IT">The type of data on the input channel.</typeparam>
+        </member>
+        <member name="M:ConcurrencyUtils.InputChannelActiveObject`1.Execute">
+            <summary>
+                Loops forever taking data off the input channel calling the 'Process' method.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.InputChannelActiveObject`1.Process(`0)">
+            <summary>
+                Process a given unit of data. Must be implemented by subclass.
+            </summary>
+            <param name="data">The data unit to process.</param>
+        </member>
+        <member name="T:ConcurrencyUtils.InputOutputChannelActiveObject`2">
+            <summary>
+                Channel-based active object which takes data from it's input channel,
+                executes some processing (must be implemented by subclass) and places
+                the result on it's output channel.
+            </summary>
+            <typeparam name="IT">The type of data on the input channel.</typeparam>
+            <typeparam name="OT">The type of data on the output channel.</typeparam>
+        </member>
+        <member name="M:ConcurrencyUtils.InputOutputChannelActiveObject`2.Execute">
+            <summary>
+                Loops forever and processing the input channel data, placing
+                the results on the output channel.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.InputOutputChannelActiveObject`2.Process(`0)">
+            <summary>
+                Process method must be implemented by subclass.
+            </summary>
+            <param name="data">The data unit to process.</param>
+            <returns>The result of processing the input data unit.</returns>
+        </member>
+        <member name="T:ConcurrencyUtils.OutputChannelActiveObject`1">
+            <summary>
+                Channel-based active object that runs some process and places the data on
+                its output channel.
+            </summary>
+            <typeparam name="OT">The type of data on the output channel.</typeparam>
+        </member>
+        <member name="M:ConcurrencyUtils.OutputChannelActiveObject`1.Execute">
+            <summary>
+                Loops forever putting the result of the 'Process' method on 
+                this active object's output channel.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.OutputChannelActiveObject`1.Process">
+            <summary>
+                Run a process and return the result of the process.
+                Must be implemented by subclass.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:ConcurrencyUtils.FIFOSemaphore">
             <summary>

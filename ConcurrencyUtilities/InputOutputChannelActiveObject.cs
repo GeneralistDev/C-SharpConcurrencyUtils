@@ -20,11 +20,21 @@ namespace ConcurrencyUtils
 
         public InputOutputChannelActiveObject() : base() { }
 
+        public virtual void Put(IT data)
+        {
+            this.inputChannel.Put(data);
+        }
+
+        public virtual OT Take()
+        {
+            return this.outputChannel.Take();
+        }
+
         /// <summary>
         ///     Loops forever and processing the input channel data, placing
         ///     the results on the output channel.
         /// </summary>
-        private override void Execute()
+        protected override void Execute()
         {
             while(true)
             {
@@ -37,6 +47,6 @@ namespace ConcurrencyUtils
         /// </summary>
         /// <param name="data">The data unit to process.</param>
         /// <returns>The result of processing the input data unit.</returns>
-        protected OT Process(IT data);
+        protected abstract OT Process(IT data);
     }
 }
