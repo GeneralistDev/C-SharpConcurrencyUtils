@@ -6,3 +6,7 @@
 # Builds
 obj/
 bin/
+
+*.csproj
+
+ConcurrencyUtilities/ConcurrencyUtils.csproj
