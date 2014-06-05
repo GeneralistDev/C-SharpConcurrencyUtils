@@ -86,7 +86,7 @@ namespace ConcurrencyUtils
             readerTS.Acquire();
             writerTS.Acquire();
             thisLock.Acquire();
-            writerTS.Release(1);
+			readerTS.Release(1);
         }
 
         /// <summary>
@@ -115,7 +115,7 @@ namespace ConcurrencyUtils
                     Monitor.Wait(lockObject);
                 }   
             }
-			readerTS.Release(1);
+			writerTS.Release(1);
         }
     }
 }
