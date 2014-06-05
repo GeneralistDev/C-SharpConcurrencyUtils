@@ -10,6 +10,8 @@ namespace ConcurrencyUtils
     ///     Channel-based active object which takes data from it's input channel,
     ///     executes some processing (must be implemented by subclass) and places
     ///     the result on it's output channel.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     /// <typeparam name="IT">The type of data on the input channel.</typeparam>
     /// <typeparam name="OT">The type of data on the output channel.</typeparam>

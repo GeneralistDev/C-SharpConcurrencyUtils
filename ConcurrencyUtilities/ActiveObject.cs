@@ -8,6 +8,8 @@ namespace ConcurrencyUtils
 {
     /// <summary>
     ///     Active (threaded) object class. Subclass and override 'Execute()' to use.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     public abstract class ActiveObject
     {

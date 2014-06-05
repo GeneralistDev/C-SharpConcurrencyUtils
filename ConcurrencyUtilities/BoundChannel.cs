@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace ConcurrencyUtils
 {
 	/// <summary>
-	/// Bound channel. Inherits from the ADT ConcurrencyUtils.Channel class
+	/// 	Bound channel. Inherits from the ADT ConcurrencyUtils.Channel class.
+	/// 
+	/// 	Author: Daniel Parker 971328X
 	/// </summary>
     public class BoundChannel<T> : Channel<T>
     {

@@ -9,6 +9,8 @@ namespace ConcurrencyUtils
 {
     /// <summary>
     ///     The semaphore class from which other concurrency utilities are derived.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     public class Semaphore
     {

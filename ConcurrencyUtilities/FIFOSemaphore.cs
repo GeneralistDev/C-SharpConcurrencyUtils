@@ -7,7 +7,10 @@ using System.Threading.Tasks;
 namespace ConcurrencyUtils
 {
     /// <summary>
-    ///     First in first out Semaphore. A semaphore that retains order of acquires so as to avoid starvation of threads.
+    ///     First in first out Semaphore. A semaphore that retains 
+	/// 	order of acquires so as to avoid starvation of threads.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     public class FIFOSemaphore: Semaphore
     {

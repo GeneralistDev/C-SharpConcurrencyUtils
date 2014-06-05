@@ -9,6 +9,8 @@ namespace ConcurrencyUtils
     /// <summary>
     ///     Channel-based active object that runs some process and places the data on
     ///     its output channel.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     /// <typeparam name="OT">The type of data on the output channel.</typeparam>
     public abstract class OutputChannelActiveObject<OT>: ActiveObject

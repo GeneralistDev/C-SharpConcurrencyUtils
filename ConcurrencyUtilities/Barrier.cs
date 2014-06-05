@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 namespace ConcurrencyUtils
 {
 	/// <summary>
-	/// Concurrency Barrier. Threads rendezvous until the size of the barrier is
-	/// reached and the last one opens the barrier to allow them all to continue.
+	/// 	Concurrency Barrier. Threads rendezvous until the size of the barrier is
+	/// 	reached and the last one opens the barrier to allow them all to continue.
 	/// 
-	/// Author: Daniel Parker 971328X
+	/// 	Author: Daniel Parker 971328X
 	/// </summary>
     public class Barrier
     {
@@ -36,7 +36,7 @@ namespace ConcurrencyUtils
         public UInt32 count;
 
 		/// <summary>
-		/// Initializes a new instance of the <see cref="ConcurrencyUtils.Barrier"/> class.
+		/// Initializes a new instance of this class.
 		/// </summary>
 		/// <param name="barrierStartSize">Barrier start size.</param>
         public Barrier(UInt32 barrierStartSize)

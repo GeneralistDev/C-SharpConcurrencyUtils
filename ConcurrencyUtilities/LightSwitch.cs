@@ -8,6 +8,8 @@ namespace ConcurrencyUtils
 {
 	/// <summary>
 	/// 	Concurrency Light switch utility.
+	/// 
+	/// 	Author: Daniel Parker 971328X
 	/// </summary>
     public class LightSwitch
     {

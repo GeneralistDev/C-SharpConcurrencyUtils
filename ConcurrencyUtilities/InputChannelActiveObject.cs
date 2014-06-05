@@ -9,6 +9,8 @@ namespace ConcurrencyUtils
     /// <summary>
     ///     Channel-based active object that takes data from its
     ///     input channel and processes it.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     /// <typeparam name="IT">The type of data on the input channel.</typeparam>
     public abstract class InputChannelActiveObject<IT>: ActiveObject

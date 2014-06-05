@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace ConcurrencyUtils
 {
 	/// <summary>
-	/// The Abstract Data Type Channel (concurrent queue)
+	/// 	The Abstract Data Type Channel (concurrent queue)
+	/// 
+	/// 	Author: Daniel Parker 971328X
 	/// </summary>
     public class Channel<T>
     {
