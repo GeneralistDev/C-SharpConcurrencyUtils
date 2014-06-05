@@ -36,10 +36,21 @@ namespace ConcurrencyUtils
             Semaphore threadSemaphore;
             lock(queueLock)
             {
-                threadSemaphore = new Semaphore(0);
-				waitingThreadsQueue.Enqueue (threadSemaphore);
+                lock (lockObject)
+                {
+					if (tokens > 0 && (waitingThreadsQueue.Count == 0))
+                    {
+                        tokens--;
+                        return;
+                    }
+                    else
+                    {
+                        threadSemaphore = new Semaphore(0);
+                        waitingThreadsQueue.Enqueue(threadSemaphore);
+                    }
+                }
             }
-
+            
             threadSemaphore.Acquire();
             base.Acquire();
         }
