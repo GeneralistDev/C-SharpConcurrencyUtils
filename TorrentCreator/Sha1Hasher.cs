@@ -12,7 +12,7 @@ namespace TorrentCreator
     {
         private SHA1 hasher = SHA1.Create();
 
-        protected byte[] Process(byte[] data)
+        protected override byte[] Process(byte[] data)
         {
             return hasher.ComputeHash(data);
         }

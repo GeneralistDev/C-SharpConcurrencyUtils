@@ -11,10 +11,17 @@ namespace ConcurrencyUtils
     ///     input channel and processes it.
     /// </summary>
     /// <typeparam name="IT">The type of data on the input channel.</typeparam>
-    abstract class InputChannelActiveObject<IT>: ActiveObject
+    public abstract class InputChannelActiveObject<IT>: ActiveObject
     {
+        /// <summary>
+        ///     Input channel that this active object will read data
+        ///     from to process.
+        /// </summary>
         public readonly Channel<IT> inputChannel = new Channel<IT>();
 
+        /// <summary>
+        ///     Public constructor.
+        /// </summary>
         public InputChannelActiveObject() : base() { }
 
         /// <summary>

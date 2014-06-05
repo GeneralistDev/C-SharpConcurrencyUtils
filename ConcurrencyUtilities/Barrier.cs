@@ -14,9 +14,25 @@ namespace ConcurrencyUtils
 	/// </summary>
     public class Barrier
     {
+        /// <summary>
+        ///     Semaphore that will be signalled when the barrier is full.
+        /// </summary>
         public Semaphore ReleaseSemaphore;
+
+        /// <summary>
+        ///     Turnstile to control the arrival of threads to the barrier.
+        /// </summary>
         public Mutex TS;
+
+        /// <summary>
+        ///     The number of threads that needs to be reached
+        ///     before all the waiting threads are released.
+        /// </summary>
         public UInt32 barrierSize;
+
+        /// <summary>
+        ///     The current number of threads in the barrier.
+        /// </summary>
         public UInt32 count;
 
 		/// <summary>

@@ -20,7 +20,7 @@ namespace TorrentCreator
             this.numberOfPieces = numberOfPieces;
         }
 
-        protected void Process(byte[] data)
+        protected override void Process(byte[] data)
         {
             torrentFile.Write(data, 0, data.Length);
             piecesWritten++;

@@ -12,7 +12,14 @@ namespace ConcurrencyUtils
     /// </summary>
     public class Semaphore
     {
+        /// <summary>
+        ///     The number of tokens available in the semaphore.
+        /// </summary>
         protected UInt64 tokens;
+
+        /// <summary>
+        ///     Object to lock when intending to read or write the 'tokens' variable.
+        /// </summary>
         protected readonly Object lockObject = new Object();
 
         /// <summary>

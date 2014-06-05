@@ -9,7 +9,7 @@ namespace ConcurrencyUtils
     /// <summary>
     ///     Active (threaded) object class. Subclass and override 'Execute()' to use.
     /// </summary>
-    abstract class ActiveObject
+    public abstract class ActiveObject
     {
         System.Threading.Thread activeThread;
 
@@ -25,7 +25,7 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Use this method to start the active object's processing.
         /// </summary>
-        public virtual void Start()
+        public void Start()
         {
             activeThread.Start();
         }
@@ -38,7 +38,7 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Stop the active object by interrupting it.
         /// </summary>
-        public virtual void Stop()
+        public void Stop()
         {
             activeThread.Interrupt();
         }

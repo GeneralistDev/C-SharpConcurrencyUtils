@@ -9,6 +9,7 @@ namespace TorrentCreator
 {
     class Program
     {
+        public const int PIECE_SIZE = 32768;
         static void Main(string[] args)
         {
             String path = null;
@@ -21,10 +22,12 @@ namespace TorrentCreator
                 path = Console.ReadLine();
             }
             Sha1Hasher sha1Hasher = new Sha1Hasher();
-            FileReader fileReader = new FileReader(path, sha1Hasher.);
+            FileReader fileReader = new FileReader(path, sha1Hasher.inputChannel, PIECE_SIZE);
 
+            path += ".torrent";
+            FileStream torrentFile = new FileStream(path, FileMode.Create);
 
-            TorrentFileWriter torrentFileWriter = new TorrentFileWriter()
+            TorrentFileWriter torrentFileWriter = new TorrentFileWriter(torrentFile, PIECE_SIZE);
             
         }
     }

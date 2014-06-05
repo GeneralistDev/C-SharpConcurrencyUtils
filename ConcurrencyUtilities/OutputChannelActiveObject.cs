@@ -11,10 +11,17 @@ namespace ConcurrencyUtils
     ///     its output channel.
     /// </summary>
     /// <typeparam name="OT">The type of data on the output channel.</typeparam>
-    abstract class OutputChannelActiveObject<OT>: ActiveObject
+    public abstract class OutputChannelActiveObject<OT>: ActiveObject
     {
+        /// <summary>
+        ///     The channel that this active object will place
+        ///     the results of processing onto.
+        /// </summary>
         public readonly Channel<OT> outputChannel = new Channel<OT>();
 
+        /// <summary>
+        ///     Public constructor.
+        /// </summary>
         public OutputChannelActiveObject() : base() { }
 
         /// <summary>

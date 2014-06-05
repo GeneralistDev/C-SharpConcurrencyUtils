@@ -13,22 +13,24 @@ namespace ConcurrencyUtils
     /// </summary>
     /// <typeparam name="IT">The type of data on the input channel.</typeparam>
     /// <typeparam name="OT">The type of data on the output channel.</typeparam>
-    abstract class InputOutputChannelActiveObject<IT, OT>: ActiveObject
+    public abstract class InputOutputChannelActiveObject<IT, OT>: ActiveObject
     {
+        /// <summary>
+        ///     The input channel for this active object. Data will
+        ///     be taken off this channel and processed by the active object.
+        /// </summary>
         public Channel<IT> inputChannel = new Channel<IT>();
+
+        /// <summary>
+        ///     The output channel for this active object. Results of processing
+        ///     will be placed on this channel.
+        /// </summary>
         public Channel<OT> outputChannel = new Channel<OT>();
 
+        /// <summary>
+        ///     Public construtor.
+        /// </summary>
         public InputOutputChannelActiveObject() : base() { }
-
-        public virtual void Put(IT data)
-        {
-            this.inputChannel.Put(data);
-        }
-
-        public virtual OT Take()
-        {
-            return this.outputChannel.Take();
-        }
 
         /// <summary>
         ///     Loops forever and processing the input channel data, placing

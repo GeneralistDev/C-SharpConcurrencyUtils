@@ -14,6 +14,11 @@ namespace ConcurrencyUtils
         private Queue<ConcurrencyUtils.Semaphore> waitingThreadsQueue = new Queue<ConcurrencyUtils.Semaphore>();
         private readonly Object queueLock = new Object();
 
+        /// <summary>
+        ///     Public constructor that calls the internal 'Release'
+        ///     method to correctly add tokens to the semaphore.
+        /// </summary>
+        /// <param name="n"></param>
         public FIFOSemaphore(UInt64 n = 0)
         {
             Release(n);

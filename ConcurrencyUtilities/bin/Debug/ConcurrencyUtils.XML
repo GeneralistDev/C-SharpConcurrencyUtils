@@ -38,6 +38,27 @@
             Author: Daniel Parker 971328X
             </summary>
         </member>
+        <member name="F:ConcurrencyUtils.Barrier.ReleaseSemaphore">
+            <summary>
+                Semaphore that will be signalled when the barrier is full.
+            </summary>
+        </member>
+        <member name="F:ConcurrencyUtils.Barrier.TS">
+            <summary>
+                Turnstile to control the arrival of threads to the barrier.
+            </summary>
+        </member>
+        <member name="F:ConcurrencyUtils.Barrier.barrierSize">
+            <summary>
+                The number of threads that needs to be reached
+                before all the waiting threads are released.
+            </summary>
+        </member>
+        <member name="F:ConcurrencyUtils.Barrier.count">
+            <summary>
+                The current number of threads in the barrier.
+            </summary>
+        </member>
         <member name="M:ConcurrencyUtils.Barrier.#ctor(System.UInt32)">
             <summary>
             Initializes a new instance of the <see cref="T:ConcurrencyUtils.Barrier"/> class.
@@ -61,8 +82,7 @@
         </member>
         <member name="M:ConcurrencyUtils.Channel`1.#ctor">
             <summary>
-            Initializes a new instance of the 
-            <see cref="!:ConcurrencyUtils.Channel"/> class
+            Initializes a new instance of this class
             by creating an abstract Queue and zero token Semaphore.
             </summary>
         </member>
@@ -79,9 +99,8 @@
         </member>
         <member name="M:ConcurrencyUtils.BoundChannel`1.#ctor(System.UInt64)">
             <summary>
-            Initializes a new instance of the 
-            <see cref="!:ConcurrencyUtils.BoundChannel`1"/> class
-            with a maximum size for the channel.
+                Initializes a new instance of this class
+                with a maximum size for the channel.
             </summary>
             <param name="size">Size.</param>
         </member>
@@ -104,6 +123,17 @@
             </summary>
             <typeparam name="IT">The type of data on the input channel.</typeparam>
         </member>
+        <member name="F:ConcurrencyUtils.InputChannelActiveObject`1.inputChannel">
+            <summary>
+                Input channel that this active object will read data
+                from to process.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.InputChannelActiveObject`1.#ctor">
+            <summary>
+                Public constructor.
+            </summary>
+        </member>
         <member name="M:ConcurrencyUtils.InputChannelActiveObject`1.Execute">
             <summary>
                 Loops forever taking data off the input channel calling the 'Process' method.
@@ -124,6 +154,23 @@
             <typeparam name="IT">The type of data on the input channel.</typeparam>
             <typeparam name="OT">The type of data on the output channel.</typeparam>
         </member>
+        <member name="F:ConcurrencyUtils.InputOutputChannelActiveObject`2.inputChannel">
+            <summary>
+                The input channel for this active object. Data will
+                be taken off this channel and processed by the active object.
+            </summary>
+        </member>
+        <member name="F:ConcurrencyUtils.InputOutputChannelActiveObject`2.outputChannel">
+            <summary>
+                The output channel for this active object. Results of processing
+                will be placed on this channel.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.InputOutputChannelActiveObject`2.#ctor">
+            <summary>
+                Public construtor.
+            </summary>
+        </member>
         <member name="M:ConcurrencyUtils.InputOutputChannelActiveObject`2.Execute">
             <summary>
                 Loops forever and processing the input channel data, placing
@@ -143,6 +190,17 @@
                 its output channel.
             </summary>
             <typeparam name="OT">The type of data on the output channel.</typeparam>
+        </member>
+        <member name="F:ConcurrencyUtils.OutputChannelActiveObject`1.outputChannel">
+            <summary>
+                The channel that this active object will place
+                the results of processing onto.
+            </summary>
+        </member>
+        <member name="M:ConcurrencyUtils.OutputChannelActiveObject`1.#ctor">
+            <summary>
+                Public constructor.
+            </summary>
         </member>
         <member name="M:ConcurrencyUtils.OutputChannelActiveObject`1.Execute">
             <summary>
@@ -167,6 +225,16 @@
                 The semaphore class from which other concurrency utilities are derived.
             </summary>
         </member>
+        <member name="F:ConcurrencyUtils.Semaphore.tokens">
+            <summary>
+                The number of tokens available in the semaphore.
+            </summary>
+        </member>
+        <member name="F:ConcurrencyUtils.Semaphore.lockObject">
+            <summary>
+                Object to lock when intending to read or write the 'tokens' variable.
+            </summary>
+        </member>
         <member name="M:ConcurrencyUtils.Semaphore.#ctor(System.UInt64)">
             <summary>
                 Constructor taking an optional initial token amount. Default is 0 tokens
@@ -181,6 +249,13 @@
         <member name="M:ConcurrencyUtils.Semaphore.Release(System.UInt64)">
             <summary>
                 Release a number of tokens to the semaphore (default 1) and pulse threads waiting at Acquire()
+            </summary>
+            <param name="n"></param>
+        </member>
+        <member name="M:ConcurrencyUtils.FIFOSemaphore.#ctor(System.UInt64)">
+            <summary>
+                Public constructor that calls the internal 'Release'
+                method to correctly add tokens to the semaphore.
             </summary>
             <param name="n"></param>
         </member>
