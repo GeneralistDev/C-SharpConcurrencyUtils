@@ -7,15 +7,25 @@ using ConcurrencyUtils;
 
 namespace Smokers
 {
+	/// <summary>
+	/// 	Smoker class.
+	/// </summary>
     class Smoker
     {
         private Semaphore watchSemaphore;
 
+		/// <summary>
+		/// 	Initializes a new instance of the Smoker class.
+		/// </summary>
+		/// <param name="watchSemaphore">The agent's semaphore that will be released to when ingredients are available.</param>
         public Smoker(Semaphore watchSemaphore)
         {
             this.watchSemaphore = watchSemaphore;
         }
 
+		/// <summary>
+		/// 	Makes the and smoke cigarette. Loops and tries to acquire from the watch semaphore.
+		/// </summary>
         public void MakeAndSmokeCigarette()
         {
             while (true)
