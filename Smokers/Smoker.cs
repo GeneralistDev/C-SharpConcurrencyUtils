@@ -13,14 +13,16 @@ namespace Smokers
     class Smoker
     {
         private Semaphore watchSemaphore;
+		private Semaphore agentSemaphore;
 
 		/// <summary>
 		/// 	Initializes a new instance of the Smoker class.
 		/// </summary>
 		/// <param name="watchSemaphore">The agent's semaphore that will be released to when ingredients are available.</param>
-        public Smoker(Semaphore watchSemaphore)
+		public Smoker(Semaphore watchSemaphore, Semaphore agentSemaphore)
         {
             this.watchSemaphore = watchSemaphore;
+			this.agentSemaphore = agentSemaphore;
         }
 
 		/// <summary>
@@ -32,6 +34,7 @@ namespace Smokers
             {
                 watchSemaphore.Acquire();
                 Console.WriteLine("\t" + System.Threading.Thread.CurrentThread.Name + " is smoking...\n");
+				agentSemaphore.Release ();
             }
         }
     }

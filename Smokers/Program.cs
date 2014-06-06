@@ -50,39 +50,8 @@ namespace Smokers
             matchPusherThread.Start();
 
 			// Thread that adds combinations of ingredients to the table to simulate.
-            Thread ingredientAdder = new Thread(() => AddIngredients(agent));
-            ingredientAdder.Start();
-        }
-
-		/// <summary>
-		/// 	Adds combinations of ingredients to the table.
-		/// </summary>
-		/// <param name="agent">The agent.</param>
-        public static void AddIngredients(Agent agent)
-        {
-            while (true)
-            {
-                Console.WriteLine("Putting match on table");
-                agent.matchSemaphore.Release();
-                Thread.Sleep(DELAY);
-                Console.WriteLine("Putting paper on table");
-                agent.paperSemaphore.Release();
-                Thread.Sleep(DELAY);
-
-                Console.WriteLine("Putting tobacco on table");
-                agent.tobaccoSemaphore.Release();
-                Thread.Sleep(DELAY);
-                Console.WriteLine("Putting paper on table");
-                agent.paperSemaphore.Release();
-                Thread.Sleep(DELAY);
-
-                Console.WriteLine("Putting match on table");
-                agent.matchSemaphore.Release();
-                Thread.Sleep(DELAY);
-                Console.WriteLine("Putting tobacco on table");
-                agent.tobaccoSemaphore.Release();
-                Thread.Sleep(DELAY);
-            }
+			Thread agentThread = new Thread(agent.supplyIngredientsLoop);
+			agentThread.Start();
         }
     }
 }

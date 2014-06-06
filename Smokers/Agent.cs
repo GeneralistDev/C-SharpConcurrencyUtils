@@ -14,6 +14,7 @@ namespace Smokers
     {
         private Object agentLock = new Object();
 		private Boolean isTobacco, isPaper, isMatch;
+		public readonly Semaphore agentSemaphore = new Semaphore(0);
 
 		// Semaphores that are pulsed to represent the availability of an ingredient.
 		// Pushers watch these semaphores.
@@ -33,6 +34,31 @@ namespace Smokers
         {
             isTobacco = isPaper = isMatch = false;
         }
+
+		public void supplyIngredientsLoop()
+		{
+			Random r = new Random (DateTime.Now ());
+			while (true)
+			{
+				int num = r.Next (1, 3);
+				switch (num)
+				{
+				case 1:
+					this.tobaccoSemaphore.Release ();
+					this.matchSemaphore.Release ();
+					break;
+				case 2:
+					this.tobaccoSemaphore.Release ();
+					this.paperSemaphore.Release ();
+					break;
+				case 3:
+					this.matchSemaphore.Release ();
+					this.paperSemaphore.Release ();
+					break;
+				}
+				agentSemaphore.Acquire();
+			}
+		}
 
 		/// <summary>
 		/// 	Waits until tobacco becomes available then checks if paper or matches
