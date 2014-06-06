@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 
 namespace ConcurrencyUtils
 {
@@ -8,10 +9,12 @@ namespace ConcurrencyUtils
 	/// </summary>
 	public class Exchanger<T>
 	{
-		private T object1;
-		private T object2;
-		private Semaphore aArrived = new Semaphore(0);
-		private Semaphore bArrived = new Semaphore(0);
+		private Object lockObject = new Object ();
+		private int threadsArrived = 0;
+		private T firstItem;
+		private T secondItem;
+		private Semaphore firstThread = new Semaphore(0);
+		private Semaphore secondThread = new Semaphore(0);
 
 		/// <summary>
 		/// 	Public constructor.
@@ -23,25 +26,26 @@ namespace ConcurrencyUtils
 		/// </summary>
 		/// <returns>Other thread's object</returns>
 		/// <param name="object1">Object to give to thread 'b'.</param>
-		public T aExchange(T object1)
+		public T Exchange(T item)
 		{
-			this.object1 = object1;
-			aArrived.Release();
-			bArrived.Acquire();
-			return this.object2;
-		}
-
-		/// <summary>
-		/// 	Thread 'b' exchange method.
-		/// </summary>
-		/// <returns>The exchange.</returns>
-		/// <param name="object2">Object to give to thread 'a'.</param>
-		public T bExchange(T object2)
-		{
-			this.object2 = object2;
-			bArrived.Release();
-			aArrived.Acquire();
-			return this.object1;
+			int thisThread = 0;
+			lock (lockObject)
+			{
+				thisThread = threadsArrived++;
+			}
+			if (thisThread == 1) {
+				this.exchangeItems[0] = item;
+				this.arrivedSemaphores[0].Release ();
+				this.arrivedSemaphores[1].Acquire ();
+				return exchangeItems[1];
+			} 
+			else 
+			{
+				this.exchangeItems[1] = item;
+				this.arrivedSemaphores[1].Release ();
+				this.arrivedSemaphores[0].Acquire ();
+				return exchangeItems[0];
+			}
 		}
 	}
 }

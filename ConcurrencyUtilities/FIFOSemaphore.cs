@@ -50,9 +50,7 @@ namespace ConcurrencyUtils
                     }
                 }
             }
-            
             threadSemaphore.Acquire();
-            base.Acquire();
         }
 
         /// <summary>
@@ -63,27 +61,26 @@ namespace ConcurrencyUtils
         {
             lock (queueLock)
             {
-				base.Release(n);
-                if (waitingThreadsQueue.Count > 0)
-                {
-                    UInt64 queueSize = waitingThreadsQueue.Count;
-                    if (queueSize <= n)
-                    {
-                        for (UInt64 i = 0; i < n; i++)
-                        {
-                            Semaphore aThreadSemaphore = waitingThreadsQueue.Dequeue();
-                            aThreadSemaphore.Release();
-                        }
-                    }
-                    else
-                    {
-                        for (UInt64 i = 0; i < queueSize; i++)
-                        {
-                            Semaphore aThreadSemaphore = waitingThreadsQueue.Dequeue();
-                            aThreadSemaphore.Release();
-                        }
-                    }
-                }
+				UInt64 queueSize = waitingThreadsQueue.Count;
+				UInt64 baseRelease = n;
+
+				if (queueSize > 0)
+				{
+					if (queueSize < n)
+					{
+						baseRelease = n - queueSize;
+					} else
+					{
+						baseRelease = 0;
+					}
+
+					for (UInt64 i = 0; i < queueSize; i++)
+					{
+						Semaphore aThreadSemaphore = waitingThreadsQueue.Dequeue();
+						aThreadSemaphore.Release();
+					}
+				} 
+				base.Release (baseRelease);
             }
         }
     }
