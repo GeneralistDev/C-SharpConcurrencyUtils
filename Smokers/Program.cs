@@ -24,9 +24,9 @@ namespace Smokers
             Agent agent = new Agent();
 
 			// Create the smokers (tobaccoSmoker == smoker that already has tobacco but needs other ingredients etc.)
-            Smoker tobaccoSmoker = new Smoker(agent.tobaccoSmoker);
-            Smoker paperSmoker = new Smoker(agent.paperSmoker);
-            Smoker matchSmoker = new Smoker(agent.matchSmoker);
+			Smoker tobaccoSmoker = new Smoker(agent.tobaccoSmoker, agent.agentSemaphore);
+			Smoker paperSmoker = new Smoker(agent.paperSmoker, agent.agentSemaphore);
+			Smoker matchSmoker = new Smoker(agent.matchSmoker, agent.agentSemaphore);
 
 			// Create and start the smoker threads
             Thread tobaccoSmokerThread = new Thread(tobaccoSmoker.MakeAndSmokeCigarette);
