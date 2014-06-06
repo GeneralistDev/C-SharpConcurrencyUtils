@@ -61,12 +61,12 @@ namespace ConcurrencyUtils
         /// <param name="n">The number of tokens to release.</param>
         public override void Release(UInt64 n = 1)
         {
-            base.Release(n);
             lock (queueLock)
             {
+				base.Release(n);
                 if (waitingThreadsQueue.Count > 0)
                 {
-                    UInt64 queueSize = UInt64.Parse(waitingThreadsQueue.Count.ToString());
+                    UInt64 queueSize = waitingThreadsQueue.Count;
                     if (queueSize <= n)
                     {
                         for (UInt64 i = 0; i < n; i++)
