@@ -22,7 +22,7 @@ namespace ConcurrencyUtils
 		public Exchanger() { }
 
 		/// <summary>
-		/// 	Thread 'a' exchange method.
+		/// 	Thread exchange method.
 		/// </summary>
 		/// <returns>Other thread's object</returns>
 		/// <param name="object1">Object to give to thread 'b'.</param>
@@ -33,19 +33,19 @@ namespace ConcurrencyUtils
 			{
 				thisThread = threadsArrived++;
 			}
-			if (thisThread == 1) {
-				this.exchangeItems[0] = item;
-				this.arrivedSemaphores[0].Release ();
-				this.arrivedSemaphores[1].Acquire ();
-				return exchangeItems[1];
-			} 
-			else 
+			if (thisThread == 1)
 			{
-				this.exchangeItems[1] = item;
-				this.arrivedSemaphores[1].Release ();
-				this.arrivedSemaphores[0].Acquire ();
-				return exchangeItems[0];
-			}
+				firstItem = item;
+				firstThread.Release();
+				secondThread.Acquire();
+				return secondItem;
+			} else if (thisThread == 2)
+			{
+				secondItem = item;
+				secondThread.Release();
+				firstThread.Acquire();
+				return firstItem;
+			} 
 		}
 	}
 }
