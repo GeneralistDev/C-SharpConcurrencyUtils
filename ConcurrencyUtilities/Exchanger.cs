@@ -9,12 +9,13 @@ namespace ConcurrencyUtils
 	/// </summary>
 	public class Exchanger<T>
 	{
-		private Object lockObject = new Object ();
 		private int threadsArrived = 0;
 		private T firstItem;
 		private T secondItem;
 		private Semaphore firstThread = new Semaphore(0);
 		private Semaphore secondThread = new Semaphore(0);
+		private Semaphore threadTwoFinished = new Semaphore (0);
+		private Mutex turnstile = new Mutex();
 
 		/// <summary>
 		/// 	Public constructor.
@@ -28,23 +29,39 @@ namespace ConcurrencyUtils
 		/// <param name="object1">Object to give to thread 'b'.</param>
 		public T Exchange(T item)
 		{
-			int thisThread = 0;
-			lock (lockObject)
-			{
-				thisThread = threadsArrived++;
-			}
+			turnstile.Acquire();
+			int thisThread = threadsArrived++;
+			T myItem;
 			if (thisThread == 1)
 			{
+				turnstile.Release();
 				firstItem = item;
 				firstThread.Release();
 				secondThread.Acquire();
-				return secondItem;
-			} else if (thisThread == 2)
+				myItem = secondItem;
+
+				// Wait for thread 2 to finish
+				threadTwoFinished.Acquire();
+
+				// Reset fields
+				threadsArrived = 0;
+				firstItem = null;
+				secondItem = null;
+
+				// Allow the next two threads in
+				turnstile.Release();
+				return myItem;
+			} 
+			else if (thisThread == 2)
 			{
 				secondItem = item;
 				secondThread.Release();
 				firstThread.Acquire();
-				return firstItem;
+				myItem = firstItem;
+
+				// Signal that thread 2 has finished
+				threadTwoFinished.Release();
+				return myItem;
 			} 
 		}
 	}
