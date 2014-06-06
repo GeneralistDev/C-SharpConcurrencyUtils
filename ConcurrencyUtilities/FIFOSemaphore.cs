@@ -62,28 +62,24 @@ namespace ConcurrencyUtils
             lock (queueLock)
             {
 				UInt64 queueSize = waitingThreadsQueue.Count;
-				UInt64 baseRelease = n;
 
 				if (queueSize > 0 && n >= queueSize)
 				{
-					baseRelease = n - queueSize;
-
 					for (UInt64 i = 0; i < queueSize; i++)
 					{
 						Semaphore aThreadSemaphore = waitingThreadsQueue.Dequeue ();
 						aThreadSemaphore.Release ();
 					}
+					base.Release(n - queueSize);
 				} 
 				else if (queueSize > 0 && n < queueSize)
 				{
-					baseRelease = 0;
 					for (UInt64 i = 0; i < n; i++)
 					{
 						Semaphore aThreadSemaphore = waitingThreadsQueue.Dequeue ();
 						aThreadSemaphore.Release ();
 					}
 				}
-				base.Release (baseRelease);
             }
         }
     }
