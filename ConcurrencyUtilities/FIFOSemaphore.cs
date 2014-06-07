@@ -61,7 +61,7 @@ namespace ConcurrencyUtils
         {
             lock (queueLock)
             {
-				UInt64 queueSize = waitingThreadsQueue.Count;
+				UInt64 queueSize = (UInt64)waitingThreadsQueue.Count;
 				UInt64 baseRelease = n;
 
 				if (queueSize > 0 && n >= queueSize)

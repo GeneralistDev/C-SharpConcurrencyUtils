@@ -45,14 +45,14 @@ namespace ConcurrencyUtils
 
 				// Reset fields
 				threadsArrived = 0;
-				firstItem = null;
-				secondItem = null;
+				firstItem = default(T);
+				secondItem = default(T);
 
 				// Allow the next two threads in
 				turnstile.Release();
 				return myItem;
 			} 
-			else if (thisThread == 2)
+			else (thisThread == 2)
 			{
 				secondItem = item;
 				secondThread.Release();
