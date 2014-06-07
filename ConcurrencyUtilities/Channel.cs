@@ -41,7 +41,7 @@ namespace ConcurrencyUtils
         }
 
 		/// <summary>
-		/// Take an item from the Channel
+		/// 	Take an item from the Channel
 		/// </summary>
         public virtual T Take()
         {
@@ -51,5 +51,18 @@ namespace ConcurrencyUtils
                 return channelQueue.Dequeue();
             }
         }
+
+		/// <summary>
+		/// 	Safely get the number of elements in the underlying queue.
+		/// </summary>
+		public int count()
+		{
+			int count;
+			lock (lockObject)
+			{
+				count = channelQueue.Count;
+			}
+			return count;
+		}
     }
 }
