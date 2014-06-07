@@ -10,3 +10,9 @@ bin/
 *.csproj
 
 ConcurrencyUtilities/ConcurrencyUtils.csproj
+
+*.dll
+
+ConcurrencyUtilities/bin/Debug/ConcurrencyUtils.dll
+
+ConcurrencyUtilities/bin/Debug/ConcurrencyUtils.XML

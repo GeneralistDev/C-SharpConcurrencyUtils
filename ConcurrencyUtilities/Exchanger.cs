@@ -52,7 +52,7 @@ namespace ConcurrencyUtils
 				turnstile.Release();
 				return myItem;
 			} 
-			else (thisThread == 2)
+			else
 			{
 				secondItem = item;
 				secondThread.Release();

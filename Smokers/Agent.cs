@@ -37,7 +37,7 @@ namespace Smokers
 
 		public void supplyIngredientsLoop()
 		{
-			Random r = new Random (DateTime.Now ());
+			Random r = new Random ((Int32)DateTime.Now.Ticks);
 			while (true)
 			{
 				int num = r.Next (1, 3);

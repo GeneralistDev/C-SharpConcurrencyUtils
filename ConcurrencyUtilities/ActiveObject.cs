@@ -13,7 +13,7 @@ namespace ConcurrencyUtils
     /// </summary>
     public abstract class ActiveObject
     {
-        System.Threading.Thread activeThread;
+		private System.Threading.Thread activeThread;
 
         /// <summary>
         ///     Public constructor that creates a Thread 
