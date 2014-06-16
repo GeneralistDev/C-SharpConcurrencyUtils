@@ -13,8 +13,7 @@ namespace ConcurrencyUtils
 	/// </summary>
     public class LightSwitch
     {
-        readonly Semaphore lSemaphore;
-        private Mutex m;
+		private readonly Semaphore lSemaphore;
         private int count;
 
 		/// <summary>
@@ -25,7 +24,6 @@ namespace ConcurrencyUtils
         public LightSwitch(Semaphore s)
         {
             lSemaphore = s;
-            m = new Mutex();
         }
 
 		/// <summary>
@@ -37,7 +35,7 @@ namespace ConcurrencyUtils
             {
                 if (count == 0)
                 {
-                    m.Acquire();
+					lSemaphore.Acquire();
                 }
                 count++;
             }
@@ -51,7 +49,7 @@ namespace ConcurrencyUtils
             count--;
             if (count == 0)
             {
-                m.Release();
+				lSemaphore.Release();
             }
         }
     }

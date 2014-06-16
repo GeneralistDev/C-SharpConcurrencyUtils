@@ -19,7 +19,7 @@ namespace ConcurrencyUtils
         ///     Input channel that this active object will read data
         ///     from to process.
         /// </summary>
-        public readonly Channel<IT> inputChannel = new Channel<IT>();
+        public Channel<IT> inputChannel = new Channel<IT>();
 
         /// <summary>
         ///     Public constructor.

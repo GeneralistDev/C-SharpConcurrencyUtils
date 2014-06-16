@@ -12,12 +12,14 @@ namespace TorrentCreator
     {
         private FileStream torrentFile;
         private int numberOfPieces;
-        private int piecesWritten = 0;
+		private int piecesWritten = 0;
+		private Boolean finished = false;
 
-        public TorrentFileWriter(FileStream torrentFile, int numberOfPieces): base()
+		public TorrentFileWriter(FileStream torrentFile, int numberOfPieces, Channel<byte[]> hashOutputChannel): base()
         {
             this.torrentFile = torrentFile;
             this.numberOfPieces = numberOfPieces;
+			this.inputChannel = hashOutputChannel;
         }
 
         protected override void Process(byte[] data)
@@ -27,8 +29,19 @@ namespace TorrentCreator
             if (numberOfPieces == piecesWritten)
             {
                 torrentFile.Close();
-                Stop();
+				lock(this)
+				{
+					finished = true;
+				}
             }
         }
+
+		public Boolean writingComplete() 
+		{
+			lock(this)
+			{
+				return finished;
+			}
+		}
     }
 }

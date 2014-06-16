@@ -26,7 +26,7 @@ namespace ConcurrencyUtils
 		/// 	Thread exchange method.
 		/// </summary>
 		/// <returns>Other thread's object</returns>
-		/// <param name="object1">Object to give to thread 'b'.</param>
+		/// <param name="item">Object to give to thread 'b'.</param>
 		public T Exchange(T item)
 		{
 			turnstile.Acquire();

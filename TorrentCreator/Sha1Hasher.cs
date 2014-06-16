@@ -14,7 +14,14 @@ namespace TorrentCreator
 
         protected override byte[] Process(byte[] data)
         {
-            return hasher.ComputeHash(data);
+			if (data.Length == 0)
+			{
+				Stop();
+				return data;
+			} else
+			{
+				return hasher.ComputeHash(data);
+			}
         }
     }
 }

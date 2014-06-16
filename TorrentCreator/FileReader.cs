@@ -10,7 +10,7 @@ namespace TorrentCreator
 {
     class FileReader: ActiveObject
     {
-        private byte[] fileBytes;
+		public byte[] fileBytes;
         private readonly Channel<byte[]> hashChannel;
         private int pieceSize;
         public int numberOfPieces;
@@ -47,6 +47,8 @@ namespace TorrentCreator
                     hashChannel.Put(piece);
                 }
             }
+			byte[] endPiece = new byte[0];
+			hashChannel.Put(endPiece);
         }
     }
 }

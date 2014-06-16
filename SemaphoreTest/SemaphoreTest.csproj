@@ -85,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConcurrencyUtilities\ConcurrencyUtils.csproj">
-      <Project>{d41547b6-d075-45b8-af3a-29ac1bee5e7c}</Project>
+      <Project>{D41547B6-D075-45B8-AF3A-29AC1BEE5E7C}</Project>
       <Name>ConcurrencyUtils</Name>
     </ProjectReference>
   </ItemGroup>

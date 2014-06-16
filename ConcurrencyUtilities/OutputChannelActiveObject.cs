@@ -19,7 +19,7 @@ namespace ConcurrencyUtils
         ///     The channel that this active object will place
         ///     the results of processing onto.
         /// </summary>
-        public readonly Channel<OT> outputChannel = new Channel<OT>();
+        public Channel<OT> outputChannel = new Channel<OT>();
 
         /// <summary>
         ///     Public constructor.
