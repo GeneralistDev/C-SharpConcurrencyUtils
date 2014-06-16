@@ -16,3 +16,10 @@ ConcurrencyUtilities/ConcurrencyUtils.csproj
 ConcurrencyUtilities/bin/Debug/ConcurrencyUtils.dll
 
 ConcurrencyUtilities/bin/Debug/ConcurrencyUtils.XML
+# Doxygen files
+html
+latex
+
+
+
+*.orig
