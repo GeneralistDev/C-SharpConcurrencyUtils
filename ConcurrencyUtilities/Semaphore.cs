@@ -20,8 +20,6 @@ namespace ConcurrencyUtils
         protected UInt64 tokens;
 		protected UInt64 waitingThreads;
 
-        private readonly Object lockObject = new Object();
-
         /// <summary>
         ///     Object to lock when intending to read or write the 'tokens' variable.
         /// </summary>
@@ -55,7 +53,7 @@ namespace ConcurrencyUtils
 			} 
 			catch (ThreadInterruptedException e) 
 			{
-				Monitor.Pulse (lockObject);
+				Monitor.Pulse(lockObject);
 			}
         }
 

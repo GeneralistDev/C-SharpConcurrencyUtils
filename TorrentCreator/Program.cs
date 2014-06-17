@@ -24,8 +24,8 @@ namespace TorrentCreator
             Sha1Hasher sha1Hasher = new Sha1Hasher();
             FileReader fileReader = new FileReader(path, sha1Hasher.inputChannel, PIECE_SIZE);
 
-            path += ".torrent";
-            FileStream torrentFile = new FileStream(path, FileMode.Create);
+			string torrentPath = path + ".torrent";
+			FileStream torrentFile = new FileStream(torrentPath, FileMode.Create);
 
 			TorrentFileWriter torrentFileWriter = new TorrentFileWriter(torrentFile, PIECE_SIZE, sha1Hasher.outputChannel);
 
@@ -44,6 +44,7 @@ namespace TorrentCreator
 			torrentFileWriter.inputChannel.Put(Encoding.UTF8.GetBytes(torrentHeader.ToString()));
 			sha1Hasher.Start();
 			fileReader.Start();
+
 
 			while (!torrentFileWriter.writingComplete()){}
 

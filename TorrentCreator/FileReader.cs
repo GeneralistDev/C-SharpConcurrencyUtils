@@ -29,9 +29,10 @@ namespace TorrentCreator
             {
                 if (!(pieceStart > fileBytes.Length))
                 {
-                    byte[] piece = new byte[pieceSize];
+					byte[] piece;
                     if ((fileBytes.Length - pieceStart) < pieceSize)
                     {
+						piece = new byte[fileBytes.Length - pieceStart];
                         for (int i = 0; i < (fileBytes.Length - pieceStart); i++)
                         {
                             piece[i] = fileBytes[pieceStart + i];
@@ -39,6 +40,7 @@ namespace TorrentCreator
                     }
                     else
                     {
+						piece = new byte[pieceSize];
                         for (int i = 0; i < pieceSize; i++)
                         {
                             piece[i] = fileBytes[pieceStart + i];

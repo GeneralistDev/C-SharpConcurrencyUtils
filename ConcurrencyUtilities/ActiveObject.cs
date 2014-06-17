@@ -13,7 +13,9 @@ namespace ConcurrencyUtils
     /// </summary>
     public abstract class ActiveObject
     {
+		protected Boolean stop = false;
 		private System.Threading.Thread activeThread;
+		protected readonly Object lockObject = new object();
 
         /// <summary>
         ///     Public constructor that creates a Thread 
@@ -42,7 +44,11 @@ namespace ConcurrencyUtils
         /// </summary>
         public void Stop()
         {
-            activeThread.Interrupt();
+			lock(lockObject)
+			{
+				stop = true;
+			}
+			activeThread.Interrupt();
         }
     }
 }

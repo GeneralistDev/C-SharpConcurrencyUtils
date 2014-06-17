@@ -23,17 +23,16 @@ namespace TorrentCreator
         }
 
         protected override void Process(byte[] data)
-        {
-            torrentFile.Write(data, 0, data.Length);
-            piecesWritten++;
-            if (numberOfPieces == piecesWritten)
-            {
-                torrentFile.Close();
+		{
+			torrentFile.Write(data, 0, data.Length);
+			piecesWritten++;
+			if (numberOfPieces == piecesWritten)
+			{
 				lock(this)
 				{
 					finished = true;
 				}
-            }
+			}
         }
 
 		public Boolean writingComplete() 

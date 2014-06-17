@@ -31,9 +31,19 @@ namespace ConcurrencyUtils
         /// </summary>
         protected override void Execute()
         {
-            while (true)
+			Boolean stopRequested;
+			lock(lockObject)
+			{
+				stopRequested = stop;
+			}
+
+			while (!stopRequested)
             {
                 Process(inputChannel.Take());
+				lock(lockObject)
+				{
+					stopRequested = stop;
+				}
             }
         }
 
