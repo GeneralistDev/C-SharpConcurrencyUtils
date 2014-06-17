@@ -24,13 +24,16 @@ namespace TorrentCreator
 
         protected override void Process(byte[] data)
 		{
-			torrentFile.Write(data, 0, data.Length);
-			piecesWritten++;
-			if (numberOfPieces == piecesWritten)
+			if (data.Length != 0)
 			{
-				lock(this)
+				torrentFile.Write(data, 0, data.Length);
+				piecesWritten++;
+				if (piecesWritten >= numberOfPieces + 1)
 				{
-					finished = true;
+					lock(this)
+					{
+						finished = true;
+					}
 				}
 			}
         }
@@ -39,7 +42,9 @@ namespace TorrentCreator
 		{
 			lock(this)
 			{
-				return finished;
+				Boolean isFinished = finished;
+				finished = false;
+				return isFinished;
 			}
 		}
     }

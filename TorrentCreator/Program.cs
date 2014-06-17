@@ -26,8 +26,8 @@ namespace TorrentCreator
 
 			string torrentPath = path + ".torrent";
 			FileStream torrentFile = new FileStream(torrentPath, FileMode.Create);
-
-			TorrentFileWriter torrentFileWriter = new TorrentFileWriter(torrentFile, PIECE_SIZE, sha1Hasher.outputChannel);
+			int pieces = (int)Math.Ceiling((double)fileReader.fileBytes.Length / (double)PIECE_SIZE);
+			TorrentFileWriter torrentFileWriter = new TorrentFileWriter(torrentFile, pieces, sha1Hasher.outputChannel);
 
 			torrentFileWriter.Start();
 
@@ -39,8 +39,7 @@ namespace TorrentCreator
 			string filename = path.Substring(path.LastIndexOf('/') + 1);
 			torrentHeader.Append("4:name" + filename.Length + ":" + filename);
 			torrentHeader.Append("12:piece lengthi" + PIECE_SIZE + "e");
-			int pieceHashesLength = (int)Math.Ceiling((double)fileReader.fileBytes.Length / (double)PIECE_SIZE) * 20;
-			torrentHeader.Append("6:pieces" + pieceHashesLength + ":");
+			torrentHeader.Append("6:pieces" + pieces * 20 + ":");
 			torrentFileWriter.inputChannel.Put(Encoding.UTF8.GetBytes(torrentHeader.ToString()));
 			sha1Hasher.Start();
 			fileReader.Start();
@@ -51,7 +50,10 @@ namespace TorrentCreator
 			string end = "ee";
 
 			torrentFileWriter.inputChannel.Put(Encoding.UTF8.GetBytes(end));
+
+			while (!torrentFileWriter.writingComplete()){}
 			torrentFileWriter.Stop();
+			torrentFile.Close();
         }
     }
 }

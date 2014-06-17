@@ -39,21 +39,25 @@ namespace ConcurrencyUtils
         /// </summary>
         public virtual void Acquire()
         {
-			try {
-	            lock (lockObject)
-	            {
-					waitingThreads++;
-	                while (tokens == 0)
-	                {
-						Monitor.Wait(lockObject);
-	                }
-					waitingThreads--;
-	                tokens--;
-	            }
-			} 
-			catch (ThreadInterruptedException e) 
+			lock(lockObject)
 			{
-				Monitor.Pulse(lockObject);
+				waitingThreads++;
+				try
+				{
+					while (tokens == 0)
+					{
+						Monitor.Wait(lockObject);
+					}
+					waitingThreads--;
+					tokens--;
+				} catch (ThreadInterruptedException e)
+				{
+					lock(lockObject)
+					{
+						waitingThreads--;
+						Monitor.Pulse(lockObject);
+					}
+				}
 			}
         }
 
