@@ -6,9 +6,11 @@ namespace SleepingSanta
 	public class State
 	{
 		//Constants (don't need locking, as they will only be read)
-		public const int HOLIDAY_TIME = 8000;
+		public const int HOLIDAY_TIME = 9000;
 		public const int ELF_DELAY = 1500;
 		public const int STD_MESSAGE_DELAY = 1000;
+		public const int MIN_ELF_WAIT = 4000;
+		public const int MAX_ELF_WAIT = 7000;
 
 		public Semaphore wakeSanta = new Semaphore(0);			// Santa tries to acquire from this semaphore (sleeping state)
 		public Semaphore sleigh = new Semaphore(0);				// Reinder acquire to hitch to the sleigh

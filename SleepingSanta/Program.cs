@@ -15,6 +15,11 @@ namespace SleepingSanta
 			Santa santa = new Santa(systemState);
 
 			/* Elves */
+			Elf elf1 = new Elf(systemState);
+			Elf elf2 = new Elf(systemState);
+			Elf elf3 = new Elf(systemState);
+			Elf elf4 = new Elf(systemState);
+			Elf elf5 = new Elf(systemState);
 
 			/* Reindeer */
 			Reindeer reindeer1 = new Reindeer(systemState, "Dasher");
@@ -29,6 +34,12 @@ namespace SleepingSanta
 
 			/* Start everything */
 			santa.Start();
+
+			elf1.Start();
+			elf2.Start();
+			elf3.Start();
+			elf4.Start();
+			elf5.Start();
 
 			reindeer1.Start();
 			reindeer2.Start();
