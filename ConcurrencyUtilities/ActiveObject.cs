@@ -26,6 +26,11 @@ namespace ConcurrencyUtils
             activeThread = new System.Threading.Thread(Execute);
         }
 
+		public ActiveObject(string threadName): this()
+		{
+			this.activeThread.Name = threadName;
+		}
+
         /// <summary>
         ///     Use this method to start the active object's processing.
         /// </summary>

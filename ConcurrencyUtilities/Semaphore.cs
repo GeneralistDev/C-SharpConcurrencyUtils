@@ -50,6 +50,11 @@ namespace ConcurrencyUtils
 					}
 					waitingThreads--;
 					tokens--;
+
+					if (tokens > 0 && waitingThreads > 0)
+					{
+						Monitor.Pulse(lockObject);
+					}
 				} catch (ThreadInterruptedException e)
 				{
 					lock(lockObject)

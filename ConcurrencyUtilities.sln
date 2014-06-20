@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TorrentCreator", "TorrentCr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConcurrencyUtilities", "ConcurrencyUtilities\ConcurrencyUtilities.csproj", "{92FB8685-82B6-442F-BB17-D369DCA0B650}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SleepingSanta", "SleepingSanta\SleepingSanta.csproj", "{EDAA5A01-8F00-4262-8F66-B68B72362ADE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,9 +52,15 @@ Global
 		{D8F3463B-8C0C-48BA-B250-2D1065C38046}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8F3463B-8C0C-48BA-B250-2D1065C38046}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8F3463B-8C0C-48BA-B250-2D1065C38046}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = TorrentCreator\TorrentCreator.csproj
+		StartupItem = SleepingSanta\SleepingSanta.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
