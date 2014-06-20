@@ -4,14 +4,26 @@ using ConcurrencyUtils;
 
 namespace SleepingSanta
 {
+	/// <summary>
+	/// 	The Reindeer class.
+	/// </summary>
 	public class Reindeer: ActiveObject
 	{
 		private State systemState;
+
+		/// <summary>
+		/// 	Initializes a new instance of the Reindeer class.
+		/// </summary>
+		/// <param name="systemState">System state.</param>
+		/// <param name="name">The name of this reindeer (used in messages).</param>
 		public Reindeer(State systemState, string name): base(name)
 		{
 			this.systemState = systemState;
 		}
 
+		/// <summary>
+		/// Execute reindeer logic.
+		/// </summary>
 		protected override void Execute()
 		{
 			while (true)

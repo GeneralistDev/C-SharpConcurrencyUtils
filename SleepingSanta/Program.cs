@@ -11,17 +11,17 @@ namespace SleepingSanta
 		{
 			State systemState = new State();		// Object that holds all the shared system variables
 
-			/* Actors */
+			/* Create Santa */
 			Santa santa = new Santa(systemState);
 
-			/* Elves */
+			/* Create Elves */
 			Elf elf1 = new Elf(systemState);
 			Elf elf2 = new Elf(systemState);
 			Elf elf3 = new Elf(systemState);
 			Elf elf4 = new Elf(systemState);
 			Elf elf5 = new Elf(systemState);
 
-			/* Reindeer */
+			/* Create and name Reindeer */
 			Reindeer reindeer1 = new Reindeer(systemState, "Dasher");
 			Reindeer reindeer2 = new Reindeer(systemState, "Dancer");
 			Reindeer reindeer3 = new Reindeer(systemState, "Prancer");
