@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,10 +9,20 @@ namespace ConcurrencyUtils
 {
     /// <summary>
     ///     The semaphore class from which other concurrency utilities are derived.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     public class Semaphore
     {
+        /// <summary>
+        ///     The number of tokens available in the semaphore.
+        /// </summary>
         protected UInt64 tokens;
+		protected UInt64 waitingThreads;
+
+        /// <summary>
+        ///     Object to lock when intending to read or write the 'tokens' variable.
+        /// </summary>
         protected readonly Object lockObject = new Object();
 
         /// <summary>
@@ -29,14 +39,26 @@ namespace ConcurrencyUtils
         /// </summary>
         public virtual void Acquire()
         {
-            lock (lockObject)
-            {
-                while (tokens == 0)
-                {
-                    Monitor.Wait(lockObject);
-                }
-                tokens--;
-            }
+			lock(lockObject)
+			{
+				waitingThreads++;
+				try
+				{
+					while (tokens == 0)
+					{
+						Monitor.Wait(lockObject);
+					}
+					waitingThreads--;
+					tokens--;
+				} catch (ThreadInterruptedException e)
+				{
+					lock(lockObject)
+					{
+						waitingThreads--;
+						Monitor.Pulse(lockObject);
+					}
+				}
+			}
         }
 
         /// <summary>
@@ -48,7 +70,10 @@ namespace ConcurrencyUtils
             lock (lockObject)
             {
                 tokens += n;
-                Monitor.PulseAll(lockObject);
+				if (waitingThreads > 0) 
+				{
+					Monitor.Pulse (lockObject);
+				}
             }
         }
     }

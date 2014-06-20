@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 namespace ConcurrencyUtils
 {
 	/// <summary>
-	/// Bound channel. Inherits from the ADT ConcurrencyUtils.Channel class
+	/// 	Bound channel. Inherits from the ADT ConcurrencyUtils.Channel class.
+	/// 
+	/// 	Author: Daniel Parker 971328X
 	/// </summary>
     public class BoundChannel<T> : Channel<T>
     {
         private Semaphore putPermission;
 
 		/// <summary>
-		/// Initializes a new instance of the 
-		/// <see cref="ConcurrencyUtils.BoundChannel`1"/> class
-		/// with a maximum size for the channel.
+		///     Initializes a new instance of this class
+		///     with a maximum size for the channel.
 		/// </summary>
 		/// <param name="size">Size.</param>
         public BoundChannel(UInt64 size)

@@ -83,12 +83,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ConcurrencyUtilities\ConcurrencyUtils.csproj">
-      <Project>{d41547b6-d075-45b8-af3a-29ac1bee5e7c}</Project>
-      <Name>ConcurrencyUtils</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -97,4 +91,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <ProjectReference Include="..\ConcurrencyUtilities\ConcurrencyUtilities.csproj">
+      <Project>{92FB8685-82B6-442F-BB17-D369DCA0B650}</Project>
+      <Name>ConcurrencyUtilities</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

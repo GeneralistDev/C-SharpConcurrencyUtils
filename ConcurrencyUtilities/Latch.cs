@@ -8,6 +8,8 @@ namespace ConcurrencyUtils
 {
 	/// <summary>
 	/// 	Concurrency Latch utility.
+	/// 
+	/// 	Author: Daniel Parker 971328X
 	/// </summary>
     public class Latch
     {

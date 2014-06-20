@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 namespace ConcurrencyUtils
 {
 	/// <summary>
-	/// The Abstract Data Type Channel (concurrent queue)
+	/// 	The Abstract Data Type Channel (concurrent queue)
+	/// 
+	/// 	Author: Daniel Parker 971328X
 	/// </summary>
     public class Channel<T>
     {
@@ -16,8 +18,7 @@ namespace ConcurrencyUtils
         private Queue<T> channelQueue;
 
 		/// <summary>
-		/// Initializes a new instance of the 
-		/// <see cref="ConcurrencyUtils.Channel`1"/> class
+		/// Initializes a new instance of this class
 		/// by creating an abstract Queue and zero token Semaphore.
 		/// </summary>
         public Channel()
@@ -40,7 +41,7 @@ namespace ConcurrencyUtils
         }
 
 		/// <summary>
-		/// Take an item from the Channel
+		/// 	Take an item from the Channel
 		/// </summary>
         public virtual T Take()
         {
@@ -50,5 +51,18 @@ namespace ConcurrencyUtils
                 return channelQueue.Dequeue();
             }
         }
+
+		/// <summary>
+		/// 	Safely get the number of elements in the underlying queue.
+		/// </summary>
+		public int count()
+		{
+			int count;
+			lock (lockObject)
+			{
+				count = channelQueue.Count;
+			}
+			return count;
+		}
     }
 }

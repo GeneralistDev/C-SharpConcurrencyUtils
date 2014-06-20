@@ -10,6 +10,8 @@ namespace ConcurrencyUtils
     /// <summary>
     ///     The mutex (single token semaphore) class which inherits from 
 	///		ConcurrencyUtils.Semaphore
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
     public class Mutex: Semaphore
     {

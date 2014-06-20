@@ -8,10 +8,14 @@ namespace ConcurrencyUtils
 {
     /// <summary>
     ///     Active (threaded) object class. Subclass and override 'Execute()' to use.
+	/// 
+	/// 	Author: Daniel Parker 971328X
     /// </summary>
-    abstract class ActiveObject
+    public abstract class ActiveObject
     {
-        System.Threading.Thread activeThread;
+		protected Boolean stop = false;
+		private System.Threading.Thread activeThread;
+		protected readonly Object lockObject = new object();
 
         /// <summary>
         ///     Public constructor that creates a Thread 
@@ -40,7 +44,11 @@ namespace ConcurrencyUtils
         /// </summary>
         public void Stop()
         {
-            activeThread.Interrupt();
+			lock(lockObject)
+			{
+				stop = true;
+			}
+			activeThread.Interrupt();
         }
     }
 }
