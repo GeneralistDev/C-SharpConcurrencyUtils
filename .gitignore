@@ -6,3 +6,6 @@
 # Builds
 obj/
 bin/
+
+# Merge Origs
+*.orig
