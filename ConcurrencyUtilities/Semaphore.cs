@@ -37,34 +37,41 @@ namespace ConcurrencyUtils
         /// <summary>
         ///     Acquire a token from the semaphore. Threads will wait if none available 
         /// </summary>
-        public virtual void Acquire()
+		public virtual bool TryAcquire(int timeout)
         {
 			lock(lockObject)
 			{
 				waitingThreads++;
-				try
+				while (tokens == 0)
 				{
-					while (tokens == 0)
+					try 
 					{
-						Monitor.Wait(lockObject);
+						if (!Monitor.Wait(lockObject, timeout))
+						{
+							return false;
+						}
 					}
-					waitingThreads--;
-					tokens--;
-
-					if (tokens > 0 && waitingThreads > 0)
+					catch (ThreadInterruptedException)
 					{
-						Monitor.Pulse(lockObject);
+						if (waitingThreads - 1 > 0)
+						{
+							Monitor.Pulse(lockObject);
+						}
+						throw;
 					}
-				} catch (ThreadInterruptedException e)
-				{
-					lock(lockObject)
+					finally
 					{
 						waitingThreads--;
-						Monitor.Pulse(lockObject);
 					}
 				}
+				tokens--; 
 			}
         }
+
+		public virtual void Acquire()
+		{
+			TryAcquire(-1);
+		}
 
         /// <summary>
         ///     Release a number of tokens to the semaphore (default 1) and pulse threads waiting at Acquire()
@@ -81,5 +88,27 @@ namespace ConcurrencyUtils
 				}
             }
         }
+
+		public virtual void ForceRelease(UInt64 n = 1)
+		{
+			Boolean interruptOccured = false;
+
+			while (true)
+			{
+				try
+				{
+					Release(n);
+					if (interruptOccured)
+					{
+						Thread.CurrentThread.Interrupt();
+					}
+					return;
+				}
+				catch (ThreadInterruptedException)
+				{
+					interruptOccured = true;
+				}
+			}
+		}
     }
 }
