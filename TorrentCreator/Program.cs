@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
 
@@ -41,19 +42,23 @@ namespace TorrentCreator
 			torrentHeader.Append("12:piece lengthi" + PIECE_SIZE + "e");
 			torrentHeader.Append("6:pieces" + pieces * 20 + ":");
 			torrentFileWriter.inputChannel.Put(Encoding.UTF8.GetBytes(torrentHeader.ToString()));
+				
 			sha1Hasher.Start();
-			fileReader.Start();
 
+			fileReader.Start();
 
 			while (!torrentFileWriter.writingComplete()){}
 
 			string end = "ee";
-
 			torrentFileWriter.inputChannel.Put(Encoding.UTF8.GetBytes(end));
 
 			while (!torrentFileWriter.writingComplete()){}
+
 			torrentFileWriter.Stop();
+			//torrentFileWriter.Stop();
 			torrentFile.Close();
+
+			Console.WriteLine("Torrent file created: \"" + torrentPath + "\"");
         }
     }
 }

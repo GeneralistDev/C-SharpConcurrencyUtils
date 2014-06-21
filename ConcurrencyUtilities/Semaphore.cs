@@ -59,14 +59,12 @@ namespace ConcurrencyUtils
 							{
 								Monitor.Pulse(lockObject);
 							}
+							waitingThreads--;
 						}
 						throw;
 					}
-					finally
-					{
-						waitingThreads--;
-					}
 				}
+				waitingThreads--;
 				tokens--;
 
 				if (waitingThreads > 0 && tokens > 0)

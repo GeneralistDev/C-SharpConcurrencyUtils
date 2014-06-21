@@ -13,7 +13,6 @@ namespace ConcurrencyUtils
     /// </summary>
     public abstract class ActiveObject
     {
-		protected Boolean stop = false;
 		private System.Threading.Thread activeThread;
 		protected readonly Object lockObject = new object();
 
@@ -49,10 +48,6 @@ namespace ConcurrencyUtils
         /// </summary>
         public void Stop()
         {
-			lock(lockObject)
-			{
-				stop = true;
-			}
 			activeThread.Interrupt();
         }
     }

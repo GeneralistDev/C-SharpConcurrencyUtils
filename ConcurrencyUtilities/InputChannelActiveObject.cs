@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ConcurrencyUtils
@@ -31,20 +32,17 @@ namespace ConcurrencyUtils
         /// </summary>
         protected override void Execute()
         {
-			Boolean stopRequested;
-			lock(lockObject)
+			try
 			{
-				stopRequested = stop;
-			}
-
-			while (!stopRequested)
-            {
-                Process(inputChannel.Take());
-				lock(lockObject)
+				while (true)
 				{
-					stopRequested = stop;
+					Process(inputChannel.Take());
 				}
-            }
+			}
+			catch (ThreadInterruptedException)
+			{
+
+			}
         }
 
         /// <summary>

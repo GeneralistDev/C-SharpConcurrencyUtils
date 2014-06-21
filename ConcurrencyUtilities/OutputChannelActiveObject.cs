@@ -32,19 +32,9 @@ namespace ConcurrencyUtils
         /// </summary>
         protected override void Execute()
         {
-			Boolean stopRequested;
-			lock(lockObject)
-			{
-				stopRequested = stop;
-			}
-
-			while (!stopRequested)
+			while (true)
 			{
 				outputChannel.Put(Process());
-				lock(lockObject)
-				{
-					stopRequested = stop;
-				}
 			}
         }
 

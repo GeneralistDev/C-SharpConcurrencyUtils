@@ -82,18 +82,5 @@ namespace ConcurrencyUtils
 				return false;
 			}
 		}
-
-		/// <summary>
-		/// 	Safely get the number of elements in the underlying queue.
-		/// </summary>
-		public int count()
-		{
-			int count;
-			lock (lockObject)
-			{
-				count = channelQueue.Count;
-			}
-			return count;
-		}
     }
 }
