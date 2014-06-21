@@ -47,12 +47,12 @@ namespace TorrentCreator
 
 			fileReader.Start();
 
-			while (!torrentFileWriter.writingComplete()){}
+			while (!torrentFileWriter.WritingComplete()){}
 
 			string end = "ee";
 			torrentFileWriter.inputChannel.Put(Encoding.UTF8.GetBytes(end));
 
-			while (!torrentFileWriter.writingComplete()){}
+			while (!torrentFileWriter.WritingComplete()){}
 
 			torrentFileWriter.Stop();
 			//torrentFileWriter.Stop();

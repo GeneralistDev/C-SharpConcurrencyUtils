@@ -38,7 +38,7 @@ namespace TorrentCreator
 			}
         }
 
-		public Boolean writingComplete() 
+		public Boolean WritingComplete() 
 		{
 			lock(this)
 			{
