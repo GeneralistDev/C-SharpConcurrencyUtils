@@ -29,12 +29,29 @@ namespace ConcurrencyUtils
         }
 
 		/// <summary>
-		/// Put the specified item into the Channel.
+		/// Put the specified item into the Channel. Keep trying if interrupted
 		/// </summary>
 		/// <param name="item">Item.</param>
         public virtual void Put(T item)
         {
-			Offer(item);
+			Boolean success = false;
+			Boolean interrupted = false;
+			while (!success)
+			{
+				try
+				{
+					success = Offer(item);
+				}
+				catch (ThreadInterruptedException)
+				{
+					interrupted = true;
+					continue;
+				}
+			}
+			if (interrupted)
+			{
+				Thread.CurrentThread.Interrupt();
+			}
         }
 
 		public virtual bool Offer(T item)
