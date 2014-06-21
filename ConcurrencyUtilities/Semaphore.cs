@@ -64,7 +64,13 @@ namespace ConcurrencyUtils
 						waitingThreads--;
 					}
 				}
-				tokens--; 
+				tokens--;
+
+				if (waitingThreads > 0 && tokens > 0)
+				{
+					Monitor.Pulse(lockObject);
+				}
+				return true;
 			}
         }
 

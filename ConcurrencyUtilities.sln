@@ -68,7 +68,7 @@ Global
 		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = H2O\H2O.csproj
+		StartupItem = TorrentCreator\TorrentCreator.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
