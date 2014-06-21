@@ -29,7 +29,7 @@ namespace ConcurrencyUtils
         }
 
 		/// <summary>
-		/// Put the specified item into the Channel. Keep trying if interrupted
+		/// Put the specified item into the Channel. Keeps trying even if interrupted.
 		/// </summary>
 		/// <param name="item">Item.</param>
         public virtual void Put(T item)
@@ -40,7 +40,7 @@ namespace ConcurrencyUtils
 			{
 				try
 				{
-					success = Offer(item);
+					success = Offer(-1, item);
 				}
 				catch (ThreadInterruptedException)
 				{
@@ -54,7 +54,21 @@ namespace ConcurrencyUtils
 			}
         }
 
-		public virtual bool Offer(T item)
+		/// <summary>
+		/// Tries to put an item on the channel. May be interrupted.
+		/// </summary>
+		/// <param name="item">Item.</param>
+		public virtual void TryPut(T item)
+		{
+			Offer(-1, item);
+		}
+
+		/// <summary>
+		/// Tries to put an item on the channel. May be interrupted.
+		/// </summary>
+		/// <param name="timout">Timeout (for use in subclasses).</param>
+		/// <param name="item">Item.</param>
+		public virtual bool Offer(int timeout, T item)
 		{
 			lock(lockObject)
 			{
@@ -66,15 +80,47 @@ namespace ConcurrencyUtils
 		}
 
 		/// <summary>
-		/// 	Take an item from the Channel
+		/// Forcefully take an item from the Channel
 		/// </summary>
         public virtual T Take()
         {
 			T item;
-			Poll(-1, out item);
+			Boolean success = false;
+			Boolean interrupted = false;
+			while (!success)
+			{
+				try
+				{
+					success = Poll(-1, out item);
+				}
+				catch (ThreadInterruptedException)
+				{
+					interrupted = true;
+				}
+			}
+			if (interrupted)
+			{
+				Thread.CurrentThread.Interrupt();
+			}
 			return item;
         }
 
+		/// <summary>
+		/// Tries to take from the channel indefinitely. May get interrupted and not return anything useful.
+		/// </summary>
+		/// <returns>The take.</returns>
+		public virtual T TryTake()
+		{
+			T item;
+			Poll(-1, out item);
+			return item;
+		}
+
+		/// <summary>
+		/// Poll the specified timeout and item.
+		/// </summary>
+		/// <param name="timeout">Timeout.</param>
+		/// <param name="item">Item.</param>
 		public virtual bool Poll(int timeout, out T item)
 		{
 			item = default(T);
