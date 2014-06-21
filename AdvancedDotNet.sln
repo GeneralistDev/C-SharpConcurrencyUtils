@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "H2O", "H2O\H2O.csproj", "{2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DodgyBrothers", "DodgyBrothersATM\DodgyBrothers\DodgyBrothers.csproj", "{3F3F26AF-FA76-4BD8-AD1E-944CFB459C9E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ActiveObjectVowelCount", "ActiveObjectVowelCount\ActiveObjectVowelCount.csproj", "{5BA42BE3-4C23-4C55-A397-B6A4E4B140F6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,12 @@ Global
 		{3F3F26AF-FA76-4BD8-AD1E-944CFB459C9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F3F26AF-FA76-4BD8-AD1E-944CFB459C9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F3F26AF-FA76-4BD8-AD1E-944CFB459C9E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BA42BE3-4C23-4C55-A397-B6A4E4B140F6}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA42BE3-4C23-4C55-A397-B6A4E4B140F6}.AppStore|Any CPU.Build.0 = Debug|Any CPU
+		{5BA42BE3-4C23-4C55-A397-B6A4E4B140F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BA42BE3-4C23-4C55-A397-B6A4E4B140F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BA42BE3-4C23-4C55-A397-B6A4E4B140F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BA42BE3-4C23-4C55-A397-B6A4E4B140F6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{92FB8685-82B6-442F-BB17-D369DCA0B650}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
 		{92FB8685-82B6-442F-BB17-D369DCA0B650}.AppStore|Any CPU.Build.0 = Debug|Any CPU
 		{92FB8685-82B6-442F-BB17-D369DCA0B650}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -76,7 +84,7 @@ Global
 		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = SemaphoreTest\SemaphoreTest.csproj
+		StartupItem = ActiveObjectVowelCount\ActiveObjectVowelCount.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
