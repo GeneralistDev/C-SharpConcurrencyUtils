@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace ConcurrencyUtils
 {
@@ -33,24 +34,54 @@ namespace ConcurrencyUtils
 		/// <param name="item">Item.</param>
         public virtual void Put(T item)
         {
-            lock (lockObject)
-            {
-                channelQueue.Enqueue(item);
-            }
-            takePermission.Release();
+			Offer(item);
         }
+
+		public virtual bool Offer(T item)
+		{
+			lock(lockObject)
+			{
+				channelQueue.Enqueue(item);
+			}
+			takePermission.ForceRelease();
+
+			return true;
+		}
 
 		/// <summary>
 		/// 	Take an item from the Channel
 		/// </summary>
         public virtual T Take()
         {
-            takePermission.Acquire();
-            lock (lockObject)
-            {
-                return channelQueue.Dequeue();
-            }
+			T item;
+			Poll(-1, out item);
+			return item;
         }
+
+		public virtual bool Poll(int timeout, out T item)
+		{
+			item = default(T);
+			if (takePermission.TryAcquire(timeout))
+			{
+				try
+				{
+					lock (lockObject)
+					{
+						item = channelQueue.Dequeue();
+					}
+				}
+				catch (ThreadInterruptedException)
+				{
+					takePermission.ForceRelease();
+					throw;
+				}
+				return true;
+			} 
+			else
+			{
+				return false;
+			}
+		}
 
 		/// <summary>
 		/// 	Safely get the number of elements in the underlying queue.
