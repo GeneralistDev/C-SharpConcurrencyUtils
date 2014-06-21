@@ -53,9 +53,12 @@ namespace ConcurrencyUtils
 					}
 					catch (ThreadInterruptedException)
 					{
-						if (waitingThreads - 1 > 0)
+						lock(lockObject)
 						{
-							Monitor.Pulse(lockObject);
+							if (waitingThreads - 1 > 0)
+							{
+								Monitor.Pulse(lockObject);
+							}
 						}
 						throw;
 					}
