@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace ActiveObjectVowelCount
 {
@@ -6,8 +7,16 @@ namespace ActiveObjectVowelCount
 	{
 		public static void Main(String[] args)
 		{
+			Console.Write("Where would you like the output file?: ");
+			String path = Console.ReadLine();
+
+			FileWriter fileWriter = new FileWriter(path);
 			VowelCount vowelCount = new VowelCount();
+
+			vowelCount.outputChannel = fileWriter.inputChannel;
 			VowelFilter vowelFilter = new VowelFilter(vowelCount.inputChannel);
+
+			fileWriter.Start();
 			vowelFilter.Start();
 			vowelCount.Start();
 

@@ -4,7 +4,7 @@ using ConcurrencyUtils;
 
 namespace ActiveObjectVowelCount
 {
-	public class VowelCount: InputChannelActiveObject<char>
+	public class VowelCount: InputOutputChannelActiveObject<char, char>
 	{
 		private Semaphore finishedSemaphore = new Semaphore(0);
 		Dictionary<char, int> counts = new Dictionary<char, int>();
@@ -17,14 +17,16 @@ namespace ActiveObjectVowelCount
 			counts.Add('u', 0);
 		}
 
-		protected override void Process(char data)
+		protected override char Process(char data)
 		{
 			if (data != (char)0)
 			{
 				counts[data] = ++counts[data];
+				return data;
 			} else
 			{
 				finishedSemaphore.Release();
+				return '\n';
 			}
 		}
 

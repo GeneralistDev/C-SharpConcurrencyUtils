@@ -31,6 +31,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="VowelFilter.cs" />
     <Compile Include="VowelCount.cs" />
+    <Compile Include="FileWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ConcurrencyUtilities\ConcurrencyUtilities.csproj">
