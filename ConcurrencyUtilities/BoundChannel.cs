@@ -111,9 +111,19 @@ namespace ConcurrencyUtils
             return item;
         }
 
+		/// <summary>
+		/// Poll the specified timeout and item. Returns true on success or false on failure.
+		/// </summary>
+		/// <param name="timeout">Timeout.</param>
+		/// <param name="item">Item.</param>
 		public override bool Poll(int timeout, out T item)
 		{
-			return base.Poll(timeout, out item);
+			Boolean success = base.Poll(timeout, out item);
+			if (success)
+			{
+				putPermission.Release();
+			}
+			return success;
 		}
     }
 }
