@@ -36,7 +36,7 @@ namespace ConcurrencyUtils
 			{
 				while (true)
 				{
-					Process(inputChannel.Take());
+					Process(inputChannel.TryTake());
 				}
 			}
 			catch (ThreadInterruptedException)

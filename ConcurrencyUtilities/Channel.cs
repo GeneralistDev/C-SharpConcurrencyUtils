@@ -84,7 +84,7 @@ namespace ConcurrencyUtils
 		/// </summary>
         public virtual T Take()
         {
-			T item;
+			T item = default(T);
 			Boolean success = false;
 			Boolean interrupted = false;
 			while (!success)

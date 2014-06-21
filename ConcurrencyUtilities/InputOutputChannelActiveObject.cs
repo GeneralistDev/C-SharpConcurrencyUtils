@@ -45,7 +45,7 @@ namespace ConcurrencyUtils
 			{
 				while (true)
 				{
-					outputChannel.Put(Process(inputChannel.Take()));
+					outputChannel.Put(Process(inputChannel.TryTake()));
 				}
 			}
 			catch (ThreadInterruptedException)
