@@ -44,38 +44,38 @@ namespace DodgyBrothers
             }
         }
 
-        public void deposit(String name, Decimal amount)
-        {
-            lock (lockBank)
-            {
-                if (accountExists(name))
-                    bankAccounts[name].Deposit(amount);
-                else
-                    throw new Exception("Account does not exist");
-            }
-        }
+		public void deposit(String name, Decimal amount)
+		{
+		    lock (lockBank)
+		    {
+		        if (accountExists(name))
+		            bankAccounts[name].Deposit(amount);
+		        else
+		            throw new Exception("Account does not exist");
+		    }
+		}
 
-        public void withdraw(String name, Decimal amount)
-        {
-            lock (lockBank)
-            {
-                if (accountExists(name))
-                    bankAccounts[name].Withdraw(amount);
-                else
-                    throw new Exception("Account does not exist");
-            }
-        }
+		public void withdraw(String name, Decimal amount)
+		{
+		    lock (lockBank)
+		    {
+		        if (accountExists(name))
+		            bankAccounts[name].Withdraw(amount);
+		        else
+		            throw new Exception("Account does not exist");
+		    }
+		}
 
-        public Decimal getBalance(String name)
-        {
-            lock (lockBank)
-            {
-                if (accountExists(name))
-                    return bankAccounts[name].getBalance();
-                else
-                    throw new Exception("Account does not exist");
-            }
-        }
+		public Decimal getBalance(String name)
+		{
+		    lock (lockBank)
+		    {
+		        if (accountExists(name))
+		            return bankAccounts[name].getBalance();
+		        else
+		            throw new Exception("Account does not exist");
+		    }
+		}
     }
 
     class Program

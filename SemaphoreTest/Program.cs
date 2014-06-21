@@ -17,16 +17,19 @@ namespace SemaphoreTest
         static void Main(string[] args)
         {
             Console.WriteLine("Enter the utility class you would like to test:\n" +
-                              "OPTIONS:\n" +
-                              "   semaphore\n" +
-                              "   channel\n" +
-                              "   boundedchannel\n" +
-                              "   lightswitch\n" +
-                              "   latch\n" +
-                              "   rwlock\n" +
-                              "   mutex\n");
+            	"OPTIONS:\n" +
+              	"\tsemaphore\n" +
+              	"\tchannel\n" +
+              	"\tboundedchannel\n" +
+              	"\tlightswitch\n" +
+  				"\tlatch\n" +
+             	"\trwlock\n" +
+			  	"\tmutex\n" +
+				"\tFIFOSemaphore\n" +
+				"\tExchanger");
             Console.Write("> ");
             String command = Console.ReadLine();
+			command = command.ToLower();
             if (command.Length > 0)
             {
                 switch (command)
@@ -131,6 +134,18 @@ namespace SemaphoreTest
                             newThread.Start();
                         }
                         break;
+					case "fifosemaphore":
+						FIFOSemaphore fifoSemaphore = new FIFOSemaphore(1);
+						for (int i = 0; i < 4; i++)
+						{
+							Thread t = new Thread(() => acquireWaitRelease(fifoSemaphore));
+							t.Name = "Thread" + i;
+							t.Start();
+							Thread.Sleep(1000);
+						}
+						break;
+					case "exchanger":
+						break;
                     default:
                         Console.WriteLine("Test for '" + args[0] + "' not implemented");
                         break;
@@ -141,6 +156,18 @@ namespace SemaphoreTest
                 Console.WriteLine("No argument provided");
             }
         }
+
+		public static void acquireWaitRelease(FIFOSemaphore fifoSemaphore)
+		{
+			while (true)
+			{
+				Console.WriteLine(Thread.CurrentThread.Name + " is acquiring...");
+				fifoSemaphore.Acquire();
+				Console.WriteLine("\t\t" + Thread.CurrentThread.Name + " has acquired");
+				Thread.Sleep(DELAY_SECONDS * 1000);
+				fifoSemaphore.Release();
+			}
+		}
 
         public static void MutexTestReleaser(ConcurrencyUtils.Mutex mutex)
         {

@@ -76,7 +76,7 @@ Global
 		{EDAA5A01-8F00-4262-8F66-B68B72362ADE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = TorrentCreator\TorrentCreator.csproj
+		StartupItem = SemaphoreTest\SemaphoreTest.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
