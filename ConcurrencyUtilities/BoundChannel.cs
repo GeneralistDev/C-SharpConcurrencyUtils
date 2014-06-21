@@ -75,6 +75,7 @@ namespace ConcurrencyUtils
 		/// <param name="timeout">Timeout.</param>
 		public override bool Offer(int timeout, T item)
 		{
+			putPermission.Acquire();
 			return base.Offer(timeout, item);
 		}
 
