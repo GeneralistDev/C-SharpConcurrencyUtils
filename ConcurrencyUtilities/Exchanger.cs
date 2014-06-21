@@ -30,7 +30,7 @@ namespace ConcurrencyUtils
 		public T Exchange(T item)
 		{
 			turnstile.Acquire();
-			int thisThread = threadsArrived++;
+			int thisThread = ++threadsArrived;
 			T myItem;
 			if (thisThread == 1)
 			{

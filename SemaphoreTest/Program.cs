@@ -145,6 +145,17 @@ namespace SemaphoreTest
 						}
 						break;
 					case "exchanger":
+						Exchanger<String> exchanger = new Exchanger<String>();
+						String string1 = "String 1";
+						String string2 = "String 2";
+						Thread thread1 = new Thread(() => exchangeString(exchanger, string1));
+						Thread thread2 = new Thread(() => exchangeString(exchanger, string2));
+						thread1.Name = "Thread 1";
+						thread2.Name = "Thread 2";
+						thread1.Start();
+						thread2.Start();
+						thread1.Join();
+						thread2.Join();
 						break;
                     default:
                         Console.WriteLine("Test for '" + args[0] + "' not implemented");
@@ -156,6 +167,13 @@ namespace SemaphoreTest
                 Console.WriteLine("No argument provided");
             }
         }
+
+		public static void exchangeString(Exchanger<String> exchanger, String myString)
+		{
+			Console.WriteLine(Thread.CurrentThread.Name + " about to exchange: " + myString);
+			String newString = exchanger.Exchange(myString);
+			Console.WriteLine(Thread.CurrentThread.Name + " received: " + newString);
+		}
 
 		public static void acquireWaitRelease(FIFOSemaphore fifoSemaphore)
 		{
