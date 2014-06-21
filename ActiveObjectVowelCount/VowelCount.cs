@@ -30,7 +30,7 @@ namespace ActiveObjectVowelCount
 			}
 		}
 
-		public void reset()
+		public void Reset()
 		{
 			counts['a'] = 0;
 			counts['e'] = 0;
@@ -39,14 +39,14 @@ namespace ActiveObjectVowelCount
 			counts['u'] = 0;
 		}
 
-		public void printCount()
+		public void PrintCount()
 		{
 			finishedSemaphore.Acquire();
 			foreach (char c in counts.Keys)
 			{
 				Console.WriteLine("\'" + c + "\' occurred " + counts[c] + " times");
 			}
-			reset();
+			Reset();
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using ConcurrencyUtils;
 
 namespace ActiveObjectVowelCount
 {
@@ -10,22 +11,25 @@ namespace ActiveObjectVowelCount
 			Console.Write("Where would you like the output file?: ");
 			String path = Console.ReadLine();
 
+			Semaphore askWait = new Semaphore(1);
+
 			FileWriter fileWriter = new FileWriter(path);
 			VowelCount vowelCount = new VowelCount();
 
 			vowelCount.outputChannel = fileWriter.inputChannel;
 			VowelFilter vowelFilter = new VowelFilter(vowelCount.inputChannel);
+			SentenceReader sentenceReader = new SentenceReader(askWait);
+			sentenceReader.outputChannel = vowelFilter.inputChannel;
 
 			fileWriter.Start();
 			vowelFilter.Start();
 			vowelCount.Start();
+			sentenceReader.Start();
 
 			while (true)
 			{
-				Console.Write("Give me a sentence to find the vowels in:\n> ");
-				String sentence = Console.ReadLine();
-				vowelFilter.inputChannel.Put(sentence);
-				vowelCount.printCount();
+				vowelCount.PrintCount();
+				askWait.Release();
 			}
 		}
 	}
