@@ -4,10 +4,17 @@ using ConcurrencyUtils;
 
 namespace ActiveObjectVowelCount
 {
+	/// <summary>
+	/// Counts the occurance of each vowel and keeps a total.
+	/// </summary>
 	public class VowelCount: InputOutputChannelActiveObject<char, char>
 	{
 		private Semaphore finishedSemaphore = new Semaphore(0);
 		Dictionary<char, int> counts = new Dictionary<char, int>();
+
+		/// <summary>
+		/// Initializes a new instance of the VowelCount class.
+		/// </summary>
 		public VowelCount() : base()
 		{
 			counts.Add('a', 0);
@@ -17,6 +24,11 @@ namespace ActiveObjectVowelCount
 			counts.Add('u', 0);
 		}
 
+		/// <summary>
+		/// Process the input character
+		/// </summary>
+		/// <param name="data">The character to process.</param>
+		/// <returns>The same input character</returns>
 		protected override char Process(char data)
 		{
 			if (data != (char)0)
@@ -30,6 +42,9 @@ namespace ActiveObjectVowelCount
 			}
 		}
 
+		/// <summary>
+		/// Reset this counts for each character.
+		/// </summary>
 		public void Reset()
 		{
 			counts['a'] = 0;
@@ -39,6 +54,9 @@ namespace ActiveObjectVowelCount
 			counts['u'] = 0;
 		}
 
+		/// <summary>
+		/// Prints the counts for each character.
+		/// </summary>
 		public void PrintCount()
 		{
 			finishedSemaphore.Acquire();
