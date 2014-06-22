@@ -8,9 +8,20 @@ using System.IO;
 
 namespace TorrentCreator
 {
+	/// <summary>
+	/// Main Program class.
+	/// </summary>
     class Program
     {
+		/// <summary>
+		/// This denotes the size of each piece in bytes
+		/// </summary>
         public const int PIECE_SIZE = 32768;
+
+		/// <summary>
+		/// The entry point of the program, where the program control starts and ends.
+		/// </summary>
+		/// <param name="args">The command-line arguments.</param>
         static void Main(string[] args)
         {
             String path;
@@ -22,6 +33,7 @@ namespace TorrentCreator
                 Console.Write("File to create torrent for <absolute path>: ");
                 path = Console.ReadLine();
             }
+
             Sha1Hasher sha1Hasher = new Sha1Hasher();
             FileReader fileReader = new FileReader(path, sha1Hasher.inputChannel, PIECE_SIZE);
 
@@ -32,6 +44,7 @@ namespace TorrentCreator
 
 			torrentFileWriter.Start();
 
+			// Create the header of the torrent file
 			StringBuilder torrentHeader = new StringBuilder();
 			torrentHeader.Append("d8:announce44:udp://tracker.openbittorrent.com:80/announce");
 			torrentHeader.Append("8:encoding5:UTF-8");
@@ -47,15 +60,20 @@ namespace TorrentCreator
 
 			fileReader.Start();
 
+			// Wait until initial writing has completed
 			while (!torrentFileWriter.WritingComplete()){}
 
+			// Append the bencoding ends
 			string end = "ee";
 			torrentFileWriter.inputChannel.Put(Encoding.UTF8.GetBytes(end));
 
+			// Wait until writing has completed again
 			while (!torrentFileWriter.WritingComplete()){}
 
+			// Stop the file writer
 			torrentFileWriter.Stop();
-			//torrentFileWriter.Stop();
+
+			// Close the torrent file
 			torrentFile.Close();
 
 			Console.WriteLine("Torrent file created: \"" + torrentPath + "\"");

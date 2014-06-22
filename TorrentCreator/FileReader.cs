@@ -8,6 +8,10 @@ using System.IO;
 
 namespace TorrentCreator
 {
+	/// <summary>
+	/// File reader class, reads a single file in as bytes and processes
+	/// them into piecesso they can be hashed.
+	/// </summary>
     class FileReader: ActiveObject
     {
 		public byte[] fileBytes;
@@ -15,6 +19,12 @@ namespace TorrentCreator
         private int pieceSize;
         public int numberOfPieces;
 
+		/// <summary>
+		/// Initializes a new instance of the FileReader class.
+		/// </summary>
+		/// <param name="fileName">File to create torrent for.</param>
+		/// <param name="hashChannel">Hash channel.</param>
+		/// <param name="pieceSize">Piece size.</param>
         public FileReader(String fileName, Channel<byte[]> hashChannel, int pieceSize): base()
         {
             fileBytes = File.ReadAllBytes(fileName);
@@ -23,6 +33,9 @@ namespace TorrentCreator
             this.numberOfPieces = (fileBytes.Length + pieceSize - 1) / pieceSize;
         }
 
+		/// <summary>
+		/// Separate the read bytes into pieces and put them on the hashChannel
+		/// </summary>
         protected override void Execute()
         {
             for (int pieceStart = 0; pieceStart < fileBytes.Length; pieceStart += pieceSize)
